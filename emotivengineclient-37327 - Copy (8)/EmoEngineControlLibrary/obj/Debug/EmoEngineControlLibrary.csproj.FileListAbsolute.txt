@@ -41,3 +41,27 @@ C:\Users\Sandy\My Own\program TA\PROGRAM\emotivengineclient-37327\EmoEngineContr
 C:\Users\Sandy\My Own\program TA\PROGRAM\emotivengineclient-37327\EmoEngineControlLibrary\bin\Debug\Eloquera.Server.exe
 C:\Users\Sandy\My Own\program TA\PROGRAM\emotivengineclient-37327\EmoEngineControlLibrary\bin\Debug\Eloquera.Client.xml
 C:\Users\Sandy\My Own\program TA\PROGRAM\emotivengineclient-37327\EmoEngineControlLibrary\bin\Debug\Eloquera.Common.xml
+C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\emotivengineclient-37327 - Copy (8)\EmoEngineControlLibrary\bin\Debug\DotNetEmotivSDK.dll
+C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\emotivengineclient-37327 - Copy (8)\EmoEngineControlLibrary\bin\Debug\edk.dll
+C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\emotivengineclient-37327 - Copy (8)\EmoEngineControlLibrary\bin\Debug\edk_utils.dll
+C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\emotivengineclient-37327 - Copy (8)\EmoEngineControlLibrary\bin\Debug\MathNet.Numerics.dll
+C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\emotivengineclient-37327 - Copy (8)\EmoEngineControlLibrary\bin\Debug\EmoEngineControlLibrary.dll
+C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\emotivengineclient-37327 - Copy (8)\EmoEngineControlLibrary\bin\Debug\EmoEngineControlLibrary.pdb
+C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\emotivengineclient-37327 - Copy (8)\EmoEngineControlLibrary\bin\Debug\Eloquera.Client.dll
+C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\emotivengineclient-37327 - Copy (8)\EmoEngineControlLibrary\bin\Debug\Eloquera.Common.dll
+C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\emotivengineclient-37327 - Copy (8)\EmoEngineControlLibrary\bin\Debug\Eloquera.Server.exe
+C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\emotivengineclient-37327 - Copy (8)\EmoEngineControlLibrary\bin\Debug\EmoEngineClientLibrary.dll
+C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\emotivengineclient-37327 - Copy (8)\EmoEngineControlLibrary\bin\Debug\EmoEngineClientLibrary.pdb
+C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\emotivengineclient-37327 - Copy (8)\EmoEngineControlLibrary\bin\Debug\EmoEngineClientLibrary.xml
+C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\emotivengineclient-37327 - Copy (8)\EmoEngineControlLibrary\bin\Debug\Eloquera.Client.xml
+C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\emotivengineclient-37327 - Copy (8)\EmoEngineControlLibrary\bin\Debug\Eloquera.Common.xml
+C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\emotivengineclient-37327 - Copy (8)\EmoEngineControlLibrary\obj\Debug\EmoEngineControlLibrary.csprojResolveAssemblyReference.cache
+C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\emotivengineclient-37327 - Copy (8)\EmoEngineControlLibrary\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\emotivengineclient-37327 - Copy (8)\EmoEngineControlLibrary\obj\Debug\EmoEngineControlLibrary_MarkupCompile.cache
+C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\emotivengineclient-37327 - Copy (8)\EmoEngineControlLibrary\obj\Debug\EmoEngineControlLibrary_MarkupCompile.lref
+C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\emotivengineclient-37327 - Copy (8)\EmoEngineControlLibrary\obj\Debug\Themes\Generic.baml
+C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\emotivengineclient-37327 - Copy (8)\EmoEngineControlLibrary\obj\Debug\EmoEngineControlLibrary.g.resources
+C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\emotivengineclient-37327 - Copy (8)\EmoEngineControlLibrary\obj\Debug\EmoEngineControlLibrary.Properties.Resources.resources
+C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\emotivengineclient-37327 - Copy (8)\EmoEngineControlLibrary\obj\Debug\EmoEngineControlLibrary.csproj.GenerateResource.Cache
+C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\emotivengineclient-37327 - Copy (8)\EmoEngineControlLibrary\obj\Debug\EmoEngineControlLibrary.dll
+C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\emotivengineclient-37327 - Copy (8)\EmoEngineControlLibrary\obj\Debug\EmoEngineControlLibrary.pdb

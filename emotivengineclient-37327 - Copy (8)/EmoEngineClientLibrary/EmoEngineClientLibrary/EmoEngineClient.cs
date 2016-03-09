@@ -534,7 +534,6 @@ namespace EmoEngineClientLibrary
             for(int i=0;i<this.rawData.Count;i++)
             {
                 Console.WriteLine("Action: " + model.Classify(rawData[i]));
-                model.
             }
             this.rawData = new List<double[]>();
             
