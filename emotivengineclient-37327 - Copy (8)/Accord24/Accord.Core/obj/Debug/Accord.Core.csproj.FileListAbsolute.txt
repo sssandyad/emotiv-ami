@@ -1,5 +1,0 @@
-C:\Users\Sandy\My Own\program TA\adastra-2.5.1-src\adastra-2.5.1-src\src\Accord24\Accord.Core\bin\Debug\Accord.dll
-C:\Users\Sandy\My Own\program TA\adastra-2.5.1-src\adastra-2.5.1-src\src\Accord24\Accord.Core\bin\Debug\Accord.pdb
-C:\Users\Sandy\My Own\program TA\adastra-2.5.1-src\adastra-2.5.1-src\src\Accord24\Accord.Core\obj\Debug\Accord.Core.csprojResolveAssemblyReference.cache
-C:\Users\Sandy\My Own\program TA\adastra-2.5.1-src\adastra-2.5.1-src\src\Accord24\Accord.Core\obj\Debug\Accord.dll
-C:\Users\Sandy\My Own\program TA\adastra-2.5.1-src\adastra-2.5.1-src\src\Accord24\Accord.Core\obj\Debug\Accord.pdb
