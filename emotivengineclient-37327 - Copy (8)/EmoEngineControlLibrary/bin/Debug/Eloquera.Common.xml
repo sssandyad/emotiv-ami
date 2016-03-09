@@ -1,0 +1,1333 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Eloquera.Common</name>
+    </assembly>
+    <members>
+        <member name="M:Eloquera.Common.ArrayParser.ParseArray(System.Array)">
+            <summary>
+            The function parses any type of array of any complexity, e.g., like this
+            
+            int[,,][,][][][,,,][,][]
+            
+            Probably, this type of array has a little sense in the modelling of the real world object,
+            it may have a use in the complex data container objects.
+            
+            Also, this function can handle the non-zero based arrays.
+            </summary>
+            <param name="arr">The array to be parsed.</param>
+        </member>
+        <member name="M:Eloquera.Common.ArrayParser.ParseSimpleArray(System.Array)">
+            <summary>
+            Parses any multidimensional (but no jagged) array of elementary types into a byte stream.
+            </summary>
+            <param name="array">A multidimensional array (no jagged arrays!)</param>
+        </member>
+        <member name="M:Eloquera.Common.ArrayParser.PrepareArrayHeader(System.Array,Eloquera.Common.DBTypes,System.Int32,System.Int32@,System.Boolean@,System.Byte[]@,System.Int32@)">
+            <summary>
+            Creates a header for the serialized array. The header contains information about the array's dimensions and the length of each dimension.
+            </summary>
+            <param name="array"></param>
+            <param name="type"></param>
+            <param name="typeSize"></param>
+            <param name="length"></param>
+            <param name="isSZArray"></param>
+            <param name="retArray"></param>
+            <param name="retCounter"></param>
+        </member>
+        <member name="M:Eloquera.Common.ArrayParser.PrepareEnumArrayHeader(System.Array,System.String,Eloquera.Common.DBTypes,System.Int32,System.Int32@,System.Boolean@,System.Byte[]@,System.Int32@)">
+            <summary>
+            Creates a header for the serialized array. The header contains information about the array's dimensions and the length of each dimension.
+            </summary>
+            <param name="array"></param>
+            <param name="originalType"></param>
+            <param name="type"></param>
+            <param name="typeSize"></param>
+            <param name="length"></param>
+            <param name="isSZArray"></param>
+            <param name="retArray"></param>
+            <param name="retCounter"></param>
+        </member>
+        <member name="M:Eloquera.Common.ArrayParser.GetRankInfo(System.Array,System.Int32[]@,System.Int32[]@)">
+            <summary>
+            Returns information about the array dimensions.
+            </summary>
+            <param name="array">The array we need to collect information about.</param>
+            <param name="lowerBounds">The lower bounds for each dimension are returned in this array.</param>
+            <param name="rankLengths">The lengths for each dimension are returned in this array.</param>
+            <returns>The rank of the array.</returns>
+        </member>
+        <member name="M:Eloquera.Common.ArrayParser.GetComplexityInfo(System.Type)">
+            <summary>
+            Returns an array to be used to recreate the complex array of required type.
+            </summary>
+            <param name="type">An array type to collect information about.</param>
+            <returns>An array of integers with the complexity at the beginning, and the rank of each nested array after.</returns>
+        </member>
+        <member name="M:Eloquera.Common.ArrayParser.GetComplexityInfoOld(System.Type)">
+            <summary>
+            Returns an array to be used to recreate the complex array of required type.
+            </summary>
+            <param name="type">An array type to collect information about.</param>
+            <returns>An array of integers with the complexity at the beginning, and the rank of each nested array after.</returns>
+        </member>
+        <member name="M:Eloquera.Common.ArrayParser.GetComplexityInfo(System.Array)">
+            <summary>
+            Returns an array to be used to recreate the complex array of required type.
+            </summary>
+            <param name="array">An array to parse.</param>
+            <returns>An array of integers with the complexity at the beginning, and the rank of each nested array after.</returns>
+        </member>
+        <member name="M:Eloquera.Common.ArrayParser.GetComplexityInfoOld(System.Array)">
+            <summary>
+            Returns an array to be used to recreate the complex array of required type.
+            </summary>
+            <param name="array">An array to parse.</param>
+            <returns>An array of integers with the complexity at the beginning, and the rank of each nested array after.</returns>
+        </member>
+        <member name="M:Eloquera.Common.ArrayParser.RestoreFromComplexityInfo(System.Type,System.Int32[],System.Int32[],System.Int32[])">
+            <summary>
+            Restores the array type from its complexity info.
+            </summary>
+            <param name="elementType"></param>
+            <param name="complexityInfo"></param>
+            <param name="lowerBounds"></param>
+            <param name="rankLengths"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eloquera.Common.ArrayParser.PrepareComplexArrayHeader(System.Array,System.Int32@,System.Byte[]@,System.Int32@)">
+            <summary>
+            Creates a header for the complex array, suitable to be stored in LDT.
+            </summary>
+            <param name="array">Array to be serialized.</param>
+            <param name="length">The length of data in the array.</param>
+            <param name="retArray">The array to write the serialized data into.</param>
+            <param name="dataPosition">The position to start writing data at.</param>
+        </member>
+        <member name="M:Eloquera.Common.ArrayParser.ParseComplexArray(System.Array,System.Int32@)">
+            <summary>
+            Parses a complex array, and creates placeholders for the object UIDs.
+            </summary>
+            <param name="array"></param>
+            <param name="dataOffset"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eloquera.Common.ArrayParser.CopySZArray(System.Array,Eloquera.Common.DBTypes,System.Int32,System.Byte[],System.Int32)">
+            <summary>
+            Creates a byte array
+            </summary>
+            <param name="array"></param>
+            <param name="type"></param>
+            <param name="length"></param>
+            <param name="retArray"></param>
+            <param name="retCounter"></param>
+        </member>
+        <member name="M:Eloquera.Common.ArrayParser.ExtractUidsFromComplexArray(System.Byte[])">
+            <summary>
+            Extracts all UIDs from complex and jagged arrays, as its name implies.
+            </summary>
+            <param name="serializedArray">The variable part of the LDT record containing a complex array.</param>
+            <returns>An array with all UIDs referenced by the input array, in it.</returns>
+        </member>
+        <member name="M:Eloquera.Common.ArrayParser.ParseStringArray(System.String[])">
+            <summary>
+            Gets a string array and turns it into byte[], which can be restored back into string[] later.
+            </summary>
+            <param name="stringArray">Array to parse.</param>
+            <returns>Resulting byte[] array.</returns>
+        </member>
+        <member name="T:Eloquera.LogicalTable.ObjectMap">
+            <summary>
+            This class represents the container for multiple cross-links between objects.
+            
+            Each object is represented by its UID. If the object is to be added and hence doesn't have an assigned UID,
+            it is replaced by a cross-link reference (instance of <see cref="T:Eloquera.LogicalTable.ObjectMapItem">ObjectMapItem</see>).
+            </summary>
+        </member>
+        <member name="M:Eloquera.LogicalTable.ObjectMap.NewItem">
+            <summary>
+            This method is an official way to create an ObjectMapItem. Reserves an entry for object mapping.
+            </summary>
+            <returns>Returns a new instance of ObjectMapItem class.</returns>
+        </member>
+        <member name="M:Eloquera.LogicalTable.ObjectMap.AddItem(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Adds an object map entry into the map.
+            </summary>
+            <param name="objectPosition">Position of the parent object within the list of serialized objects.</param>
+            <param name="serializationPosition">-1 shows that referenced object is in the fixed part. Non-negative values refer the variable record.</param>
+            <param name="serializationOffset">Offset for the referenced object's UID with the part specified by serializationPosition.</param>
+            <param name="referencedObjectPosition">Position of the referenced object within the list of serialized objects.</param>
+        </member>
+        <member name="M:Eloquera.LogicalTable.ObjectMap.#ctor">
+            <summary>
+            Creates an instance of ObjectMap class.
+            </summary>
+        </member>
+        <member name="T:Eloquera.LogicalTable.ObjectMapItem">
+            <summary>
+            Represents an object in the object list.
+            </summary>
+        </member>
+        <member name="P:Eloquera.LogicalTable.ObjectMapItem.Object">
+            <summary>
+            A position of object that contains the reference to a different object.
+            </summary>
+        </member>
+        <member name="P:Eloquera.LogicalTable.ObjectMapItem.Where">
+            <summary>
+            Shows whether to insert the reference UID into fixed or variable data.
+            Value of -1 indicates that the referred value should be inserted into the fixed part,
+            any other (non-negative) value means that the UID should go into the variable part at varData[Where]. In the latter case,
+            Offset field defines an exact position within the variable field.
+            </summary>
+        </member>
+        <member name="P:Eloquera.LogicalTable.ObjectMapItem.Offset">
+            <summary>
+            Shows the offset of the position to insert UID within the fixed or variable part. 
+            See Where for more information about determining whether the fixed or the variable part should be used.
+            Negative value indicates the 
+            </summary>
+        </member>
+        <member name="P:Eloquera.LogicalTable.ObjectMapItem.WhichObject">
+            <summary>
+            Indicates the position of the referred object in the list of objects.
+            </summary>
+        </member>
+        <member name="T:Eloquera.Common.ClientInterface.SerializedObject">
+            <summary>
+            A model container for the serialized object. This class doesn't provide a capability for storing ValueTypes.
+            
+            </summary>
+        </member>
+        <member name="P:Eloquera.Common.ClientInterface.SerializedObject.UID">
+            <summary>
+            UID for the serialized object. Valid only if the object is represented by its serialized data.
+            </summary>
+        </member>
+        <member name="T:Eloquera.Common.ClientInterface.SerializedObjectSet">
+            <summary>
+            This class is not supposed to be used outside of server logical table. It provides storage capabilities for SerializedObject instances,
+            and is not supposed to be used as a dictionary (the dictionary functionality is used internally, though).
+            
+            The main design feature of this class is the fastest possible way of returning arrays of fixed and variable data for the serialized objects.
+            </summary>
+        </member>
+        <member name="M:Eloquera.Common.ClientInterface.SerializedObjectSet.ContainsObject(System.Byte[],System.Int64@)">
+            <summary>
+            Checks if the object is already present in the current SerializedObjectSet instance.
+            </summary>
+            <param name="fixedData">Fixed part of object's serialized representation.</param>
+            <param name="uid"></param>
+            <returns>True if object already exists in the set; false otherwise.</returns>
+        </member>
+        <member name="M:Eloquera.Common.ClientInterface.SerializedObjectSet.AddIfNew(System.Byte[],System.Byte[][])">
+            <summary>
+            Adds an object into the set if it is not already present within stored objects.
+            </summary>
+            <param name="fixedData">Fixed part of object's serialized representation.</param>
+            <param name="varData">Variable part of object's serialized representation.</param>
+            <returns>True if object has been added successfully; false if the object is already present in the set.</returns>
+        </member>
+        <member name="M:Eloquera.Common.ClientInterface.SerializedObjectSet.ToArrays(System.Byte[][]@,System.Byte[][][]@)">
+            <summary>
+            Creates 2 arrays with the fixed and variable parts of serialized objects.
+            </summary>
+            <param name="fixedData">Fixed parts of object's serialized representation.</param>
+            <param name="varData">Variable parts of object's serialized representation.</param>
+            <returns>Number of serialized objects returned.</returns>
+        </member>
+        <member name="M:Eloquera.Common.ClientInterface.SerializedObjectDataSet.ContainsObject(System.Int64,Eloquera.Common.ClientInterface.SerializedObject@)">
+            <summary>
+            Checks if the object is already present in the current SerializedObjectSet instance.
+            </summary>
+            
+            <returns>True if object already exists in the set; false otherwise.</returns>
+        </member>
+        <member name="M:Eloquera.Common.TypeByUidResolver.#ctor(Eloquera.Common.TypeByUidResolver.ResolveTypeNameViaUid)">
+            <summary>
+            Creates an instance of the object.
+            </summary>
+            <param name="resolver">A pointer to a method that resolves unknown UIDs into their type names.</param>
+        </member>
+        <member name="M:Eloquera.Common.TypeByUidResolver.OverrideMaskType(System.Int64,System.Type)">
+            <summary>
+            This method is used for testing only. Do not use it in the wild. :-)
+            It allows to assign a different type for the mask.
+            Useful when several types have the same name (see the TypeUpdate test example).
+            </summary>
+            <param name="uid">UID of the object of needed type.</param>
+            <param name="type">Type to assign to the mask.</param>
+        </member>
+        <member name="P:Eloquera.Common.TypeByUidResolver.Item(System.Int64)">
+            <summary>
+            Returns the type of the object using the serialized object's UID.
+            </summary>
+            <param name="uid">UID of the object's serialized representation.</param>
+            <returns>Type object instance, if the type is present in the client system, and <c>null</c> otherwise.</returns>
+        </member>
+        <member name="T:Eloquera.Common.TypeByUidResolver.ResolveTypeNameViaUid">
+            <summary>
+            A delegate type to hold the function resolving UIDs into the type names.
+            </summary>
+            <param name="uid">The UID or UID mask to be resolved into the type name.</param>
+            <returns>The type name corresponding to the UID or mask. 
+            Does not return type itself as the type may not be present on the client machine.</returns>
+        </member>
+        <member name="T:Eloquera.Common.EloqueraException">
+            <summary>
+            Exception that database use to throw.
+            </summary>
+        </member>
+        <member name="M:Eloquera.Common.EloqueraException.#ctor(Eloquera.Common.ErrorCode)">
+            <summary>
+            This constructor initializes the Message property empty. 
+            </summary>
+            <param name="code">The error code that explains the reason for the exception</param>
+        </member>
+        <member name="M:Eloquera.Common.EloqueraException.#ctor(Eloquera.Common.ErrorCode,System.String)">
+            <summary>
+             The content of the message parameter is intended to be understood by humans. 
+             The caller of this constructor is required to ensure that this string has been localized for the current system culture.
+            </summary>      
+             <param name="code">The error code that explains the reason for the exception</param>
+             <param name="message">The error message that explains the reason for the exception</param>
+        </member>
+        <member name="M:Eloquera.Common.EloqueraException.#ctor(System.String)">
+            <summary>
+             The content of the message parameter is intended to be understood by humans. 
+             The caller of this constructor is required to ensure that this string has been localized for the current system culture.
+            </summary>   
+             <param name="message">The error message that explains the reason for the exception</param>
+        </member>
+        <member name="M:Eloquera.Common.EloqueraException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            This constructor is called during deserialization to reconstitute the exception object transmitted over a stream
+            </summary>
+            <param name="info">The object that holds the serialized object data.</param>
+            <param name="context">The contextual information about the source or destination</param>
+        </member>
+        <member name="M:Eloquera.Common.EloqueraException.#ctor(Eloquera.Common.ErrorCode,System.String,System.Exception)">
+            <summary>
+             The content of the message parameter is intended to be understood by humans. 
+             The caller of this constructor is required to ensure that this string has been localized for the current system culture.
+             
+             An exception that is thrown as a direct result of a previous exception should include a reference to the previous exception in the InnerException property
+            </summary>      
+             <param name="code">The error code that explains the reason for the exception</param>
+             <param name="message">The error message that explains the reason for the exception</param>
+             <param name="innerException">The exception that is the cause of the current exception. 
+             If the innerException parameter is not a null reference, the current exception is raised in a catch block that handles the inner exception</param>
+        </member>
+        <member name="P:Eloquera.Common.EloqueraException.ErrorCode">
+            <summary>
+            Get HRESULT of the error.
+            </summary>
+        </member>
+        <member name="T:Eloquera.Common.EloqueraDbException">
+            <summary>
+            The exception that is thrown when the Eloquera database cannot proceed with the operation.
+            </summary>
+        </member>
+        <member name="M:Eloquera.Common.EloqueraDbException.#ctor(Eloquera.Common.ErrorCode,System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the EloqueraDbException class with a specified error message and a reference to the inner exception that is the cause of this exception.
+            </summary>
+            <param name="code">The error code that explains the reason for the exception</param>
+            <param name="message">The error message that explains the reason for the exception.</param>
+            <param name="innerException">The exception that is the cause of the current exception. If the innerException parameter is not a null reference, the current exception is raised in a catch block that handles the inner exception.</param>
+        </member>
+        <member name="M:Eloquera.Common.EloqueraDbException.#ctor(Eloquera.Common.ErrorCode,System.String)">
+            <summary>
+            Initializes a new instance of the ArgumentException class with a specified error message.
+            </summary>
+            <param name="code">The error code that explains the reason for the exception</param>
+            <param name="message">The error message that explains the reason for the exception.</param>
+        </member>
+        <member name="M:Eloquera.Common.EloqueraDbException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the EloqueraDbException class with serialized data.
+            </summary>
+            <param name="info">The object that holds the serialized object data.</param>
+            <param name="context">The contextual information about the source or destination.</param>
+        </member>
+        <member name="T:Eloquera.Common.QueryException">
+            <summary>
+            The exception that is thrown when the Eloquera database cannot proceed with the query.
+            </summary>
+        </member>
+        <member name="M:Eloquera.Common.QueryException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the QueryException class with serialized data.
+            </summary>
+            <param name="info">The object that holds the serialized object data.</param>
+            <param name="context">The contextual information about the source or destination.</param>
+        </member>
+        <member name="T:Eloquera.Common.EloqueraAccessDeniedException">
+            <summary>
+            The exception that is thrown when the Eloquera database cannot proceed with the operation.
+            </summary>
+        </member>
+        <member name="M:Eloquera.Common.EloqueraAccessDeniedException.#ctor(Eloquera.Common.ErrorCode,System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the EloqueraDbException class with a specified error message and a reference to the inner exception that is the cause of this exception.
+            </summary>
+            <param name="code">The error code that explains the reason for the exception</param>
+            <param name="message">The error message that explains the reason for the exception.</param>
+            <param name="innerException">The exception that is the cause of the current exception. If the innerException parameter is not a null reference, the current exception is raised in a catch block that handles the inner exception.</param>
+        </member>
+        <member name="M:Eloquera.Common.EloqueraAccessDeniedException.#ctor(Eloquera.Common.ErrorCode,System.String)">
+            <summary>
+            Initializes a new instance of the ArgumentException class with a specified error message.
+            </summary>
+            <param name="code">The error code that explains the reason for the exception</param>
+            <param name="message">The error message that explains the reason for the exception.</param>
+        </member>
+        <member name="M:Eloquera.Common.EloqueraAccessDeniedException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the EloqueraDbException class with serialized data.
+            </summary>
+            <param name="info">The object that holds the serialized object data.</param>
+            <param name="context">The contextual information about the source or destination.</param>
+        </member>
+        <member name="T:Eloquera.Common.EloqueraInternalException">
+            <summary>
+            Exception that database use to throw
+            </summary>
+        </member>
+        <member name="M:Eloquera.Common.EloqueraInternalException.#ctor(Eloquera.Common.ErrorCode)">
+            <summary>
+             This constructor initializes the Message property empty. 
+            </summary>
+             <param name="code">The error code that explains the reason for the exception</param>
+        </member>
+        <member name="M:Eloquera.Common.EloqueraInternalException.#ctor(System.String)">
+            <summary>
+            The content of the message parameter is intended to be understood by humans. 
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:Eloquera.Common.EloqueraInternalException.#ctor(Eloquera.Common.ErrorCode,System.String)">
+            <summary>
+             The content of the message parameter is intended to be understood by humans. 
+             The caller of this constructor is required to ensure that this string has been localized for the current system culture.
+            </summary>      
+             <param name="message">The error message that explains the reason for the exception</param>
+             <param name="code">The error code that explains the reason for the exception</param>
+        </member>
+        <member name="M:Eloquera.Common.EloqueraInternalException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            This constructor is called during deserialization to reconstitute the exception object transmitted over a stream
+            </summary>
+            <param name="info">The object that holds the serialized object data.</param>
+            <param name="context">The contextual information about the source or destination</param>
+        </member>
+        <member name="M:Eloquera.Common.EloqueraInternalException.#ctor(Eloquera.Common.ErrorCode,System.String,System.Exception)">
+            <summary>
+             The content of the message parameter is intended to be understood by humans. 
+             The caller of this constructor is required to ensure that this string has been localized for the current system culture.
+             
+             An exception that is thrown as a direct result of a previous exception should include a reference to the previous exception in the InnerException property
+            </summary>      
+             <param name="message">The error message that explains the reason for the exception</param>
+             <param name="innerException">The exception that is the cause of the current exception. 
+             <param name="code">The error code that explains the reason for the exception</param> 
+             If the innerException parameter is not a null reference, the current exception is raised in a catch block that handles the inner exception</param>
+        </member>
+        <member name="M:Eloquera.Common.EloqueraParserException.#ctor(Eloquera.Common.ErrorCode)">
+            <summary>
+             This constructor initializes the Message property empty. 
+            </summary>
+             <param name="code">The error code that explains the reason for the exception</param> 
+        </member>
+        <member name="M:Eloquera.Common.EloqueraParserException.#ctor(Eloquera.Common.ErrorCode,System.String)">
+            <summary>
+             The content of the message parameter is intended to be understood by humans. 
+             The caller of this constructor is required to ensure that this string has been localized for the current system culture.
+            </summary>      
+             <param name="message">The error message that explains the reason for the exception</param>
+             <param name="code">The error code that explains the reason for the exception</param> 
+        </member>
+        <member name="M:Eloquera.Common.EloqueraParserException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            This constructor is called during deserialization to reconstitute the exception object transmitted over a stream
+            </summary>
+            <param name="info">The object that holds the serialized object data.</param>
+            <param name="context">The contextual information about the source or destination</param>
+        </member>
+        <member name="M:Eloquera.Common.TreeHeader.#ctor(System.Int32,System.Int32,System.Boolean,System.Int32)">
+            <summary>
+            For all types with the variable keySize
+            </summary>
+            <param name="maxKeyCount">Max number of keys in the index tree node</param>
+            <param name="maxDataKeyCount">Max number of keys in the data tree node</param>
+            <param name="haveDuplicates"></param>
+            <param name="keySize">size of one key in bytes</param>
+        </member>
+        <member name="M:Eloquera.Common.TreeHeader.#ctor(System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            For all types with the fixed keySize 
+            </summary>
+            <param name="maxKeyCount">Max number of keys in the index tree node</param>
+            <param name="maxDataKeyCount">Max number of keys in the data tree node</param>
+            <param name="haveDuplicates"></param>
+        </member>
+        <member name="M:Eloquera.Common.TreeHeader.#ctor(System.Int32)">
+            <summary>
+            For all types with the fixed keySize 
+            </summary>
+            <param name="maxKeyCount">Max number of keys in the index tree node</param>
+        </member>
+        <member name="M:Eloquera.Common.TreeHeader.#ctor(System.Int32,System.Int32)">
+            <summary>
+            For all types with the fixed keySize 
+            </summary>
+            <param name="maxKeyCount">Max number of keys in the index tree node</param>
+            <param name="maxDataKeyCount">Max number of keys in the data tree node</param>
+        </member>
+        <member name="T:Eloquera.Common.FAT">
+            <summary>
+            FAT
+            </summary>
+        </member>
+        <member name="T:Eloquera.Common.Entry">
+            <summary>
+            ENTRY TABLE
+            </summary>
+        </member>
+        <member name="T:Eloquera.Common.StorageHeader">
+            <summary>
+            STORAGE HEADER
+            </summary>
+        </member>
+        <member name="M:Eloquera.Common.InfoLogger.#ctor(System.Text.Encoding,System.String,System.String,System.Int32)">
+            <summary>
+            Just a stub.
+            </summary>
+            <param name="fileEncoding"></param>
+            <param name="path"></param>
+            <param name="filePrefix"></param>
+            <param name="flushTime"></param>
+        </member>
+        <member name="M:Eloquera.Common.InfoLogger.LogString(System.String)">
+            <summary>
+            Just a stub.
+            </summary>
+            <param name="logString"></param>
+        </member>
+        <member name="M:Eloquera.Common.InfoLogger.LogString(System.String,System.Object[])">
+            <summary>
+            Just a stub.
+            </summary>
+            <param name="format"></param>
+            <param name="param"></param>
+        </member>
+        <member name="M:Eloquera.Common.Logger.WriteLine(Eloquera.Common.LoggerMode,System.String)">
+            <summary>
+            Writes a message into a log file (depending on the current MinimumMode).
+            </summary>
+            <param name="message"></param>
+            <param name="mode"></param>
+        </member>
+        <member name="P:Eloquera.Common.Logger.MinimumMode">
+            <summary>
+            Indicates what minimal level of messages should be written into the log file.
+            If the current MinimumMode is greater than a mode provided by Write method,
+            the message is ignored and is not written into the log file.
+            </summary>
+        </member>
+        <member name="P:Eloquera.Common.LongArray.storageVar">
+            <summary>
+            The contained internal list of type long which is delegated
+            </summary>
+        </member>
+        <member name="P:Eloquera.Common.LongArray.Count">
+            <summary>
+            Gets the number of items in the collection
+            </summary>
+        </member>
+        <member name="P:Eloquera.Common.LongArray.Item(System.Int32)">
+            <summary>
+            Gets or sets an item at a specific location
+            </summary>
+            <param name="index">The zero based index of the item to get or set</param>
+            <returns>The item at the specified index</returns>
+        </member>
+        <member name="P:Eloquera.Common.ILOperation.Opcode">
+            <summary>
+            The OpCode (Operation Code) for the currect MSIL instruction.
+            </summary>
+        </member>
+        <member name="P:Eloquera.Common.ILOperation.VTOperand">
+            <summary>
+            Value-typed operand for the MSIL operation.
+            </summary>
+        </member>
+        <member name="P:Eloquera.Common.ILOperation.RTOperand">
+            <summary>
+            Reference-typed operand for the MSIL operation.
+            </summary>
+        </member>
+        <member name="P:Eloquera.Common.ILOperation.OperandType">
+            <summary>
+            A flag indicating the type of the operand.
+            </summary>
+        </member>
+        <member name="M:Eloquera.Common.MsilAnalyser.ExtractFieldsFromMethod(System.Reflection.MethodInfo,System.Boolean@)">
+            <summary>
+            The method analyses the provided property accessor (generally, any method) for the list of any fields,
+            the method deals with.
+            
+            It also tries to find out if the method just returns a value of the field (i.e., is the simple 'get' accessor).
+            </summary>
+            <param name="mi">The MethodInfo object containing a description of the method to be analysed.</param>
+            <param name="isSimpleGet">An output parameter indicating if the method is a simple accessor.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Eloquera.Common.MsilAnalyser.GetProperty``1(System.Func{``0},System.String@,System.String@)">
+            <summary>
+            Analyses the method and extracts the property name referred in it and the class name the property is defined in.
+            </summary>
+            <typeparam name="T">The type of the property. Automatically deferred by the compiler.</typeparam>
+            <param name="useProperty">The method defined as a lambda or a delegate, like <c>()=&gt;myClass.MyProperty</c>.</param>
+            <param name="typeName">The full name of the class the property is defined in.</param>
+            <param name="propertyName">The property name.</param>
+            <returns>True if the property and the class name could be extracted successfully, and false otherwise.</returns>
+        </member>
+        <member name="M:Eloquera.Common.MeasurePerformance.Measure(Eloquera.Common.MeasurableFunction)">
+            <summary>
+            Measures time required to perform an operation given by a delegate.
+            </summary>
+            <param name="function">Delegate defining an operation.</param>
+            <returns>Time in milliseconds.</returns>
+        </member>
+        <member name="T:Eloquera.Common.RpnOperationType">
+            <summary>
+            enum for all SQL operations, supported by database
+            </summary>
+        </member>
+        <member name="M:Eloquera.Common.SerializationUtils.PackStrings(System.String[])">
+            <summary>
+            Packs an array of strings into a single byte array.
+            </summary>
+            <param name="strArray">Strings to pack.</param>
+            <returns>An array of bytes with all required information for restoring the string array back into its original form.</returns>
+        </member>
+        <member name="M:Eloquera.Common.SerializationUtils.UnpackStrings(System.Byte[],System.Int32,System.Int32@)">
+            <summary>
+            Extracts an array of String from the given byte array starting at the specific position for specific length.
+            </summary>
+            <param name="packedArray">The array containing serialized strings.</param>
+            <param name="position">Position in the packedArray to start unpacking strings from.</param>
+            <param name="positionAfter">Maximum number of strings to return in the array.</param>
+            <returns></returns>
+            <remarks>
+            Expected data structure:
+               
+                string count = n (int)
+                1st string length = L1 (int)
+                1st string data = L1 bytes (byte[])
+                ....
+                n-th string length = Ln (int)
+                n-th string data = Ln bytes (byte[])
+            </remarks>
+        </member>
+        <member name="M:Eloquera.Common.SimpleCache`2.ClearCache">
+            <summary>
+            TO BE OPTIMIZED
+            </summary>
+        </member>
+        <member name="T:Eloquera.Common.SyncLockDictionary`2">
+            <summary>
+            Provides a thread-safe and lock-efficient dictionary.  Key must
+            implement the generic IComparable interface, and the value must
+            be a reference type.
+            Enumerations are thread-safe, but will block changes to the
+            dictionary.
+            </summary>
+        </member>
+        <member name="M:Eloquera.Common.SyncLockDictionary`2.#ctor">
+            <summary>
+            Default Constructor
+            </summary>
+        </member>
+        <member name="M:Eloquera.Common.SyncLockDictionary`2.#ctor(System.Collections.Generic.Dictionary{`0,`1})">
+            <summary>
+            Copy Constructor
+            </summary>
+            <param name="copy"></param>
+        </member>
+        <member name="M:Eloquera.Common.SyncLockDictionary`2.#ctor(System.Collections.Generic.IEqualityComparer{`0})">
+            <summary>
+            Constructor
+            </summary>
+            <param name="comparer"></param>
+        </member>
+        <member name="M:Eloquera.Common.SyncLockDictionary`2.#ctor(System.Int32)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="capacity"></param>
+        </member>
+        <member name="M:Eloquera.Common.SyncLockDictionary`2.#ctor(System.Int32,System.Collections.Generic.IEqualityComparer{`0})">
+            <summary>
+            Constructor
+            </summary>
+            <param name="capacity"></param>
+            <param name="comparer"></param>
+        </member>
+        <member name="M:Eloquera.Common.SyncLockDictionary`2.Add(`0,`1)">
+            <summary>
+            Add a new value to the dictionary.
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Eloquera.Common.SyncLockDictionary`2.Remove(`0)">
+            <summary>
+            Remove a value from the dictionary.
+            </summary>
+            <param name="key"></param>
+        </member>
+        <member name="M:Eloquera.Common.SyncLockDictionary`2.ContainsKey(`0)">
+            <summary>
+            Returns true if the specified key exists in the collection.
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eloquera.Common.SyncLockDictionary`2.ContainsValue(`1)">
+            <summary>
+            Returns true if the specified value exists in the collection.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eloquera.Common.SyncLockDictionary`2.TryGetValue(`0,`1@)">
+            <summary>
+            Gets the value associated with the specified key.  Returns
+            false if the specified key does not exist in the dictionary.
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eloquera.Common.SyncLockDictionary`2.GetEnumerator">
+            <summary>
+            Returns a thread-safe enumerator for this dictionary (changes
+            to the dictionary will not be reflected during an enumeration).
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Eloquera.Common.SyncLockDictionary`2.Count">
+            <summary>
+            Returns the number of items currently in the dictionary.
+            </summary>
+        </member>
+        <member name="P:Eloquera.Common.SyncLockDictionary`2.Keys">
+            <summary>
+            Returns a reference to the Keys collection.
+            </summary>
+        </member>
+        <member name="P:Eloquera.Common.SyncLockDictionary`2.Values">
+            <summary>
+            Returns a reference to the Values collection.
+            </summary>
+        </member>
+        <member name="P:Eloquera.Common.SyncLockDictionary`2.Item(`0)">
+            <summary>
+            Thread-safe accessor property.
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Eloquera.Common.SyncLockDictionary`2.SyncRoot">
+            <summary>
+            Gets an object that can be used to synchronize
+            access to the dictionary.
+            </summary>
+        </member>
+        <member name="T:Eloquera.Common.SafeEnumerator">
+            <summary>
+            Provides a thread-safe enumerator for a SyncLockDictionary object.
+            </summary>
+        </member>
+        <member name="M:Eloquera.Common.SafeEnumerator.#ctor(System.Collections.IList)">
+            <summary>
+            
+            </summary>
+            <param name="items"></param>
+        </member>
+        <member name="M:Eloquera.Common.SafeEnumerator.Dispose">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Eloquera.Common.SafeEnumerator.MoveNext">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Eloquera.Common.SafeEnumerator.Reset">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Eloquera.Common.SafeEnumerator.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Eloquera.Common.SafeEnumerator.Current">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Eloquera.Common.SafeEnumerator.System#Collections#IEnumerator#Current">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Eloquera.Common.Text">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Eloquera.Common.Text.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Eloquera.Common.Text.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Eloquera.Common.Text.CannotFindOpcode">
+            <summary>
+              Looks up a localized string similar to Internal Error: Cannot find opcode .
+            </summary>
+        </member>
+        <member name="P:Eloquera.Common.Text.CannotInsertAboveTheSpecifiedIndex">
+            <summary>
+              Looks up a localized string similar to Internal Error: Cannot insert above the specified index.
+            </summary>
+        </member>
+        <member name="P:Eloquera.Common.Text.FixedData">
+            <summary>
+              Looks up a localized string similar to Internal Error: General failure.
+            </summary>
+        </member>
+        <member name="P:Eloquera.Common.Text.GenericAccessorShouldBeCalledCorrectly">
+            <summary>
+              Looks up a localized string similar to Generic accessor should be called for generic types only.
+            </summary>
+        </member>
+        <member name="P:Eloquera.Common.Text.IndexOutOfRange">
+            <summary>
+              Looks up a localized string similar to Internal Error: Index out of range.
+            </summary>
+        </member>
+        <member name="P:Eloquera.Common.Text.InvalidLength">
+            <summary>
+              Looks up a localized string similar to Internal Error: Invalid length.
+            </summary>
+        </member>
+        <member name="P:Eloquera.Common.Text.NullException">
+            <summary>
+              Looks up a localized string similar to Internal Error: Null Exception.
+            </summary>
+        </member>
+        <member name="P:Eloquera.Common.Text.TheEloqueraConfigFileEitherIsInaccessibleOrHasSomeInvalidOrMissingEntries">
+            <summary>
+              Looks up a localized string similar to The Eloquera.config file either is inaccessible or has some invalid or missing entries..
+            </summary>
+        </member>
+        <member name="P:Eloquera.Common.Text.TheMethodAcceptsTheArraysOfElementaryTypesOnly">
+            <summary>
+              Looks up a localized string similar to Internal Error: The method accepts the arrays of elementary types only.
+            </summary>
+        </member>
+        <member name="P:Eloquera.Common.Text.UnexpectedEndOfIL">
+            <summary>
+              Looks up a localized string similar to Internal Error: Unexpected end of IL.
+            </summary>
+        </member>
+        <member name="M:Eloquera.Common.TypeNameParser.TypeInfo.ToStringCSharpLong">
+            <summary>
+            Returns the C# representation of the type using full type names.
+            </summary>
+            <returns>Representation of the type in full type names in C#.</returns>
+        </member>
+        <member name="M:Eloquera.Common.TypeNameParser.TypeInfo.ToStringStripGeneric">
+            <summary>
+            Return type name without generic parameters.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Eloquera.Common.TypeNameParser.TypeInfo.GetGenericTypes(System.Int32[],Eloquera.Common.TypeNameParser.TypeInfo[],System.Collections.Generic.IDictionary{System.String,System.Type})">
+            <summary>
+            Recursively restore generic types from typeInfo.
+            </summary>
+            <param name="genericParams"></param>
+            <param name="typeInfo"></param>
+            <param name="resolver"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eloquera.Common.TypeNameParser.TypeInfo.BuildGenericParametersList(System.Int32[],Eloquera.Common.TypeNameParser.TypeInfo[],System.Boolean)">
+            <summary>
+            Builds the list of generic type parameters for each nested type.
+            </summary>
+            <param name="genericParams">Number of the generic type parameters for each nested type.</param>
+            <param name="typeInfo">Generic type parameters in a single array for all nested types as returned by a parser.</param>
+            <param name="useFullName">Shows whether all names must contain the namespaces.</param>
+            <returns>C#-style generic type parameter lists with angle brackers around.</returns>
+        </member>
+        <member name="M:Eloquera.Common.TypeNameParser.TypeInfo.ParseGenerics(System.String[])">
+            <summary>
+            Parses the generic type names to get the number of generic type parameters for each nested type.
+            </summary>
+            <param name="types">Type names in CLR format (no namespace, assembly info, etc.)</param>
+            <returns>An array containing the information about the generic type parameter count for each nested type, or null for non-generic types.</returns>
+        </member>
+        <member name="T:Eloquera.Common.TypeNameParser.TypeInfoParser">
+            <summary>
+            Provides methods for getting type information from the type names (currently only in CLR format).
+            </summary>
+        </member>
+        <member name="M:Eloquera.Common.TypeNameParser.TypeInfoParser.ParseCLRTypeName(System.String)">
+            <summary>
+            Parses a type name string in the CLR format.
+            </summary>
+            <param name="typeDefinition">A type name string.</param>
+            <returns>An instance of TypeInfo with information about the type name, namespace, generic type parameters, etc.</returns>
+        </member>
+        <member name="M:Eloquera.Common.TypeNameParser.TypeInfoParser.ParseCLRTypeName(System.String,System.Int32@)">
+            <summary>
+            Parses a type name string in the CLR format starting from a specific position.
+            </summary>
+            <param name="typeDefinition">A type name string.</param>
+            <param name="position">Position to start at. Also returns the position directly after the type definition (may be not at an end of the string).</param>
+            <returns>An instance of TypeInfo with information about the type name, namespace, generic type parameters, etc.</returns>
+        </member>
+        <member name="M:Eloquera.Common.TypeNameParser.TypeInfoParser.ParseCLRNamespaceInType(System.String,System.Int32@)">
+            <summary>
+            Finds the namespace pattern in a given string.
+            </summary>
+            <param name="typeDefinition">String to find a pattern in.</param>
+            <param name="position">Position in string to start searching. Also returns a position right after the last dot in namespace.</param>
+            <returns>Full namespace name without the trailing dot.</returns>
+        </member>
+        <member name="M:Eloquera.Common.TypeNameParser.TypeInfoParser.ParseCLRTypeNameInType(System.String,System.Int32@)">
+            <summary>
+            Extracts a valid type name in the provided string.
+            </summary>
+            <param name="typeDefinition">String to find a pattern in.</param>
+            <param name="position">Position in string to start searching. Also returns a position right after the last character in type name.</param>
+            <returns>A valid type name identifier, or null if not valid type name can be found.</returns>
+        </member>
+        <member name="M:Eloquera.Common.TypeNameParser.TypeInfoParser.ParseCLRGenericTypesInType(System.String,System.Int32@)">
+            <summary>
+            Extracts generic type parameter information in form of TypeInfo objects.
+            </summary>
+            <param name="typeDefinition">String to find a pattern in.</param>
+            <param name="position">Position in string to start searching. Also returns a position right after the last character in generic type parameter definition.</param>
+            <returns>A list of types listed in the generic type parameters.</returns>
+        </member>
+        <member name="M:Eloquera.Common.TypeNameParser.TypeInfoParser.GetValidIdentifierEndingPosition(System.String,System.Int32)">
+            <summary>
+            Finds the first available valid identifier starting from the specific point in the string.
+            </summary>
+            <param name="parseMe">A string to find an identifier inside.</param>
+            <param name="fromPosition">A position within a string to start searching for the identifier.</param>
+            <returns>Returns the position of the first character after the identifier 
+            or the position beyond the last character of the string if the identifier ends at the end of string
+            (does not point to the last symbol of the identifier!)
+            Return -1 if the provided starting position does not contain a valid character to start an identifier.</returns>
+        </member>
+        <member name="M:Eloquera.Common.TypeNameParser.TypeInfoParser.GetValidIdentifierEndingPosition(System.String,System.Int32,System.String)">
+            <summary>
+            Finds the first available valid identifier starting from the specific point in the string.
+            </summary>
+            <param name="parseMe">A string to find an identifier inside.</param>
+            <param name="fromPosition">A position within a string to start searching for the identifier.</param>
+            <param name="validCharacters">A list of characters allowed to appear in the body of the identifier (although not at the beginning).</param>
+            <returns>Returns the position of the first character after the identifier 
+            or the position beyond the last character of the string if the identifier ends at the end of string
+            (does not point to the last symbol of the identifier!)
+            Return -1 if the provided starting position does not contain a valid character to start an identifier.</returns>
+        </member>
+        <member name="M:Eloquera.Common.TypeNameParser.TypeInfoParser.IsGoodFirstIDChar(System.Char)">
+            <summary>
+            Check if the input character is a good first symbol for an identifier.
+            </summary>
+            <param name="parseMe">Character to check.</param>
+            <returns>True if the valid identifier can start with the input character.</returns>
+        </member>
+        <member name="M:Eloquera.Common.TypeNameParser.TypeInfoParser.IsGoodIDChar(System.Char)">
+            <summary>
+            Check if the input character is a good (not first) symbol for an identifier.
+            </summary>
+            <param name="parseMe">Character to check.</param>
+            <returns>True if the valid identifier can contain the input character.</returns>
+        </member>
+        <member name="M:Eloquera.Common.TypeNameParser.TypeInfoParser.IsCharFromList(System.Char,System.String)">
+            <summary>
+            Checks whether the input character is in the list (which is given as a string).
+            </summary>
+            <param name="parseMe">Character to check.</param>
+            <param name="listOfChars">A string with characters to match.</param>
+            <returns>True if the innput character is in the list. False otherwise.</returns>
+        </member>
+        <member name="M:Eloquera.Common.TypeNameParser.EloqueraParserException.#ctor">
+            <summary>
+             This constructor initializes the Message property empty. 
+            </summary>
+        </member>
+        <member name="M:Eloquera.Common.TypeNameParser.EloqueraParserException.#ctor(System.String)">
+            <summary>
+             The content of the message parameter is intended to be understood by humans. 
+             The caller of this constructor is required to ensure that this string has been localized for the current system culture.
+            </summary>      
+             <param name="message">The error message that explains the reason for the exception</param>
+        </member>
+        <member name="M:Eloquera.Common.TypeNameParser.EloqueraParserException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            This constructor is called during deserialization to reconstitute the exception object transmitted over a stream
+            </summary>
+            <param name="info">The object that holds the serialized object data.</param>
+            <param name="context">The contextual information about the source or destination</param>
+        </member>
+        <member name="M:Eloquera.Common.Utils.RawSerialize(System.Object)">
+            <summary>
+            Convert object into byte[]
+            </summary>
+            <param name="anything">Any object</param>
+            <returns></returns>
+        </member>
+        <member name="M:Eloquera.Common.Utils.RawDeserialize(System.Byte[],System.Int32)">
+            <summary>
+            Converts byte[] into object
+            </summary>
+            <param name="rawdatas">Raw bytes</param>
+            <param name="offset"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eloquera.Common.Utils.CastToString(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Creates a string from its binary representation.
+            </summary>
+            <param name="rawdata">Binary data containing a serialized string.</param>
+            <param name="offset">Offset where string data starts.</param>
+            <param name="len">Length of string data in bytes.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Eloquera.Common.Utils.CastToBytes(System.Byte,System.Byte[],System.Int32)">
+            <summary>
+            Inserts the byte into the byte array at the specified offset. Created for the uniform cast functionality.
+            </summary>
+            <param name="value">Value to be casted.</param>
+            <param name="rawdata">Array to store the byte stream.</param>
+            <param name="offset">The position the byte stream to be inserted at.</param>
+        </member>
+        <member name="M:Eloquera.Common.Utils.CastToBytes(System.Object,System.Int32,System.Byte[],System.Int32)">
+            <summary>
+            Returns a byte representation of the underlying type with automatic type conversion.
+            </summary>
+            <param name="data">The object containing data to be converted into the byte array.</param>
+            <param name="typeCode">The type code as specified in the TypeInfo </param>
+            <param name="rawdata"></param>
+            <param name="offset"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eloquera.Common.Utils.AreEqual(System.Byte*,System.Byte*,System.Int32)">
+            <summary>
+            Checks if two arrays are equal
+            </summary>
+            <param name="src"></param>
+            <param name="dest"></param>
+            <param name="len"></param>
+        </member>
+        <member name="M:Eloquera.Common.Utils.MemCopy(System.Byte*,System.Byte*,System.Int32)">
+            <summary>
+            Copies memory from src to dest
+            </summary>
+            <param name="src"></param>
+            <param name="dest"></param>
+            <param name="len"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eloquera.Common.Utils.MemXor(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="src"></param>
+            <param name="srcOffset"></param>
+            <param name="len"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eloquera.Common.Utils.MemXor(System.UInt32,System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="start"></param>
+            <param name="src"></param>
+            <param name="srcOffset"></param>
+            <param name="len"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eloquera.Common.Utils.MemXor(System.UInt32[],System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="src"></param>
+            <param name="srcOffset"></param>
+            <param name="len"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eloquera.Common.Utils.MemXor(System.Byte*,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="src"></param>
+            <param name="len"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eloquera.Common.Utils.MemXor(System.UInt64,System.Byte*,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="acc"></param>
+            <param name="src"></param>
+            <param name="len"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eloquera.Common.Utils.CompareByteArrays(System.Byte[],System.Byte[],System.Int32)">
+            <summary>
+            Compares two byte arrays of the same length. 
+            If input arrays are not of equal length, the exception is throw.
+            </summary>
+            <param name="src">First array to compare.</param>
+            <param name="dst">Second array to compare.</param>
+            <param name="len">The length of the comp</param>
+            <returns></returns>
+        </member>
+        <member name="M:Eloquera.Common.Utils.CompareStrings(System.String,System.String,System.Boolean,System.Globalization.CultureInfo)">
+            <summary>
+            Compares two strings. Strings can be of different length
+            </summary>
+            <param name="src">One string</param>
+            <param name="dst">Another string</param>
+            <param name="isCaseSensitive">Case sensitive comparizon</param>
+            <param name="Culture">Culture to use for comparizon</param>
+            <returns></returns>
+        </member>
+        <member name="M:Eloquera.Common.Utils.MemSet(System.Byte[],System.Int32,System.Byte)">
+            <summary>
+            
+            </summary>
+            <param name="src"></param>
+            <param name="startIndex"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Eloquera.Common.Utils.InsertIntoArray``1(``0[],System.Int32,``0)">
+            <summary>
+            Inserts an object of type T into T[] at the specified position.
+            </summary>
+            <param name="pKeys">The container array.</param>
+            <param name="pos">The position the new item has to be inserted at.</param>
+            <param name="key">The new T item to be inserted.</param>
+        </member>
+        <member name="M:Eloquera.Common.Utils.RemoveFromArray``1(``0[],System.Int32)">
+            <summary>
+            Inserts an object of type T into T[] at the specified position.
+            </summary>
+            <param name="pKeys">The container array.</param>
+            <param name="pos">The position the new item has to be inserted at.</param>
+        </member>
+        <member name="M:Eloquera.Common.Utils.InsertIntoArray``1(``0[],System.Int32,System.Int32,``0)">
+            <summary>
+            Inserts an object of type T into an array filled not at the full length. 
+            If you have only few items in a big array, this method can be much faster
+            than more generic implementation of InsertIntoArray.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="pKeys"></param>
+            <param name="pos"></param>
+            <param name="arrayLen"></param>
+            <param name="key"></param>
+        </member>
+        <member name="M:Eloquera.Common.Utils.ParseArray(System.Array)">
+            <summary>
+            The function parses any type of array of any complexity, e.g., like this
+            
+            int[,,][,][][][,,,][,][]
+            
+            Probably, this type of array has a little sense in the modelling of the real world object,
+            it may have a use in the complex data container objects.
+            
+            Also, this function can handle the non-zero based arrays.
+            </summary>
+            <param name="arr">The array to be parsed.</param>
+        </member>
+        <member name="M:Eloquera.Common.Utils.ParseSimpleArray(System.Array)">
+            <summary>
+            Parses any multidimensional (but no jagged) array of elementary types into a byte stream.
+            </summary>
+            <param name="array">A multidimensional array (no jagged arrays!)</param>
+        </member>
+        <member name="M:Eloquera.Common.Utils.CopySZArray(System.Array,Eloquera.Common.DBTypes,System.Int32,System.Byte[],System.Int32)">
+            <summary>
+            Creates a byte array
+            </summary>
+            <param name="array"></param>
+            <param name="type"></param>
+            <param name="length"></param>
+            <param name="retArray"></param>
+            <param name="retCounter"></param>
+        </member>
+        <member name="M:Eloquera.Common.Utils.ToString2(System.Byte[])">
+            <summary>
+            Converts a byte array into the string. This becomes a property of any byte array.
+            </summary>
+            <param name="array"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eloquera.Common.Utils.InternalParse(System.String,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            Used for culture invariant parsing
+            </summary>
+            <param name="str">string that contains a number</param>
+            <param name="offset">offset, where shall start to parse</param>
+            <param name="len">how many symbol to parse</param>
+            <param name="result">parsed number</param>
+            <returns>true if parsing successful, false otherwise</returns>
+        </member>
+        <member name="M:Eloquera.Common.Utils.InternalParse(System.String,System.Int32,System.Int32@)">
+            <summary>
+            Used for culture invariant parsing. Parses until meets any non-number character.
+            </summary>
+            <param name="str">string that contains a number</param>
+            <param name="offset">offset, where shall start to parse</param>
+            <param name="result">parsed number</param>
+            <returns>true if parsing successful, false otherwise</returns>
+        </member>
+        <member name="M:Eloquera.Common.Utils.GetType(System.String)">
+            <summary>
+            Returns a type object for a given type name. Traverses through all loaded assemblies (Type.GetType cannot get types from different assemblies).
+            </summary>
+            <param name="typeName">A type name in a form of string. The name must be in CLR format.</param>
+            <returns>Type object, if the type exists. Null, otherwise.</returns>
+        </member>
+        <member name="M:Eloquera.Common.Utils.BinarySearch(System.Int64[],System.Int64,System.Int32,System.Int32)">
+            <summary>
+            Searches an element in the sorted array. 
+            </summary>
+            <param name="a">array</param>
+            <param name="value">value to search</param>        
+            <param name="startFrom">index from which array starts</param>
+            <param name="arLen">length of the array</param>
+            <returns>
+            returns positiv index of value, if array contains it
+            or negativ index where the value should be inserted.
+            if the value less then the first element int.MinValue is returned
+            </returns>
+        </member>
+        <member name="M:Eloquera.Common.Utils.GetHashedString(System.String,System.Int32)">
+            <summary>
+            Creates a truncated version of a string with a hash value mixed in to get a unique string.
+            </summary>
+            <param name="originalString">A string to truncate if needed.</param>
+            <param name="maxLength">Maximum length to truncate at.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Eloquera.Common.Utils.GetShortNameForGeneric(System.Type,System.Boolean)">
+            <summary>
+            Returns a short name for the generic types, including types derived from generic types.
+            </summary>
+            <param name="genType">The type to get its short name.</param>
+            <param name="getShortestName">Shows if we need the shortest possible name, or we are fine with full names of types.
+            Required by generics to show FullType&lt;FullTemlateType&gt; format.</param>
+            <returns>The short name for the generic type.</returns>
+        </member>
+        <member name="M:Eloquera.Common.Utils.GetGenericTypeName(System.String)">
+            <summary>
+            Returns the 'simplified' name for the generic type.
+            </summary>
+            <param name="genericTypeName">Generic type's full name.</param>
+            <returns>The type name without decoration.</returns>
+        </member>
+        <member name="M:Eloquera.Common.Utils.GetFullName(System.String)">
+            <summary>
+            Returns both full and short C#-style type names.
+            </summary>
+            <param name="typeName">CLR-style type name.</param>
+            <returns>Array containing both full and short C#-style type names.</returns>
+        </member>
+        <member name="M:Eloquera.Common.Utils.GetHashedPassword(System.String,System.String,System.String)">
+            <summary>
+            Creates a hash of a provided user name salted with password (or visa-versa, which does not matter here).
+            </summary>
+            <param name="userName">A user name to hash.</param>
+            <param name="password">A password to hash.</param>
+            <param name="salt"></param>
+            <returns>A hash of a string containing a user name and a password.</returns>
+        </member>
+        <member name="M:Eloquera.Common.Utils.AddSalt(System.Byte[],System.Byte[])">
+            <summary>
+            Adds salt to the existing hashed value.
+            </summary>
+            <param name="originalString">Original hashed value.</param>
+            <param name="salt">Salt to add.</param>
+            <returns>Hashed value for the original data and salt combined.</returns>
+        </member>
+        <member name="M:Eloquera.Common.Utils.GetSizeForByteArray(Eloquera.Common.DBTypes[])">
+            <summary>
+            Return need size for array according to target types
+            </summary>
+            <param name="types">Target types that will store in byte array</param>
+            <returns>Size of byte array</returns>
+        </member>
+        <member name="M:Eloquera.Common.Utils.GetOffsetForByteArray(Eloquera.Common.DBTypes[],System.Int32)">
+            <summary>
+            Return need offset for targer number of types
+            </summary>
+            <param name="types">Target types that will store in byte array</param>
+            <param name="toNumber">Number of need types</param>
+            <returns>Offset for targer number of types</returns>
+        </member>
+        <member name="M:Eloquera.Common.Utils.GetTypesField(Eloquera.Common.DBTypes[],System.Type[]@)">
+            <summary>
+            Get array of Type according DBTypes
+            </summary>
+            <param name="typesForMethod">Array with DBTypes</param>
+            <param name="types">Array for according Type</param>
+        </member>
+        <member name="M:Eloquera.Common.Utils.TruncateStringInByteArray(System.Byte[])">
+            <summary>
+            Truncate string for need length
+            </summary>
+            <param name="Value">Array of byte that contains string</param>
+            <returns>Byte array with string that have need length</returns>
+        </member>
+        <member name="M:Eloquera.Common.Utils.ReturnObjArrayForCompoundKey(Eloquera.Common.DBTypes[],System.Int32[],System.Byte[],System.Byte[][])">
+            <summary>
+            Return array obj for creating compound key
+            </summary>
+            <param name="types">Array Type of object in compound index</param>
+            <param name="offsetOfFields">Array of fields offset</param>
+            <param name="fixedData"></param>
+            <param name="varData"></param>
+            <returns>Array with objects that need for creating compound index key</returns>
+        </member>
+        <member name="T:Eloquera.Common.ISerializer`1">
+            <summary>
+            The object implementing this interface may provide the most efficient and the fastest way of serializing its content.
+            </summary>
+            <typeparam name="T">The type to serialize and deserialize.</typeparam>
+        </member>
+    </members>
+</doc>
