@@ -1,0 +1,9 @@
+C:\Users\Sandy\My Own\program TA\adastra-2.5.1-src\adastra-2.5.1-src\src\AForge.Neuro\bin\Debug\AForge.Neuro.dll
+C:\Users\Sandy\My Own\program TA\adastra-2.5.1-src\adastra-2.5.1-src\src\AForge.Neuro\bin\Debug\AForge.Neuro.pdb
+C:\Users\Sandy\My Own\program TA\adastra-2.5.1-src\adastra-2.5.1-src\src\AForge.Neuro\bin\Debug\AForge.Neuro.xml
+C:\Users\Sandy\My Own\program TA\adastra-2.5.1-src\adastra-2.5.1-src\src\AForge.Neuro\bin\Debug\AForge.dll
+C:\Users\Sandy\My Own\program TA\adastra-2.5.1-src\adastra-2.5.1-src\src\AForge.Neuro\bin\Debug\AForge.Genetic.dll
+C:\Users\Sandy\My Own\program TA\adastra-2.5.1-src\adastra-2.5.1-src\src\AForge.Neuro\bin\Debug\AForge.Math.dll
+C:\Users\Sandy\My Own\program TA\adastra-2.5.1-src\adastra-2.5.1-src\src\AForge.Neuro\obj\Debug\Neuro.csprojResolveAssemblyReference.cache
+C:\Users\Sandy\My Own\program TA\adastra-2.5.1-src\adastra-2.5.1-src\src\AForge.Neuro\obj\Debug\AForge.Neuro.dll
+C:\Users\Sandy\My Own\program TA\adastra-2.5.1-src\adastra-2.5.1-src\src\AForge.Neuro\obj\Debug\AForge.Neuro.pdb

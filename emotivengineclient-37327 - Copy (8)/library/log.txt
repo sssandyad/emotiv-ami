@@ -1,0 +1,20 @@
+2015-05-21 11:14:02.5578|ERROR|Adastra.MainForm|System.NotSupportedException: An attempt was made to load an assembly from a network location which would have caused the assembly to be sandboxed in previous versions of the .NET Framework. This release of the .NET Framework does not enable CAS policy by default, so this load may be dangerous. If this load is not intended to sandbox the assembly, please enable the loadFromRemoteSources switch. See http://go.microsoft.com/fwlink/?LinkId=155569 for more information.
+   at System.Reflection.RuntimeAssembly.nLoadFile(String path, Evidence evidence)
+   at System.Reflection.Assembly.LoadFile(String path)
+   at Eloquera.LogicalTable.Client.Server.Load(String serverAssemblyPath, String dataFilesPath)
+   at Eloquera.LogicalTable.Client.Server..ctor(String serverName, Int32 portNo, Boolean connect, String userName, String password, Int32 timeout, String serverAssemblyPath, String dataFilesPath)
+   at Eloquera.LogicalTable.Client.Server..ctor(String serverName, Int32 portNo, String userName, String password, Int32 timeout, String serverAssemblyPath, String dataFilesPath)
+   at Eloquera.Client.DB..ctor(String connectionString)
+   at Adastra.ModelStorage..ctor() in c:\Users\Sandy\My Own\program TA\adastra-2.5.1-src\adastra-2.5.1-src\src\Adastra\Tools\ModelStorage.cs:line 31
+   at Adastra.TrainForm..ctor(IFeatureGenerator fg) in c:\Users\Sandy\My Own\program TA\adastra-2.5.1-src\adastra-2.5.1-src\src\Adastra\Forms\TrainForm.cs:line 90
+   at Adastra.MainForm.buttonStart_Click(Object sender, EventArgs e) in c:\Users\Sandy\My Own\program TA\adastra-2.5.1-src\adastra-2.5.1-src\src\Adastra\Forms\MainForm.cs:line 142
+2015-05-21 11:14:07.0118|ERROR|Adastra.MainForm|System.NotSupportedException: An attempt was made to load an assembly from a network location which would have caused the assembly to be sandboxed in previous versions of the .NET Framework. This release of the .NET Framework does not enable CAS policy by default, so this load may be dangerous. If this load is not intended to sandbox the assembly, please enable the loadFromRemoteSources switch. See http://go.microsoft.com/fwlink/?LinkId=155569 for more information.
+   at System.Reflection.RuntimeAssembly.nLoadFile(String path, Evidence evidence)
+   at System.Reflection.Assembly.LoadFile(String path)
+   at Eloquera.LogicalTable.Client.Server.Load(String serverAssemblyPath, String dataFilesPath)
+   at Eloquera.LogicalTable.Client.Server..ctor(String serverName, Int32 portNo, Boolean connect, String userName, String password, Int32 timeout, String serverAssemblyPath, String dataFilesPath)
+   at Eloquera.LogicalTable.Client.Server..ctor(String serverName, Int32 portNo, String userName, String password, Int32 timeout, String serverAssemblyPath, String dataFilesPath)
+   at Eloquera.Client.DB..ctor(String connectionString)
+   at Adastra.ModelStorage..ctor() in c:\Users\Sandy\My Own\program TA\adastra-2.5.1-src\adastra-2.5.1-src\src\Adastra\Tools\ModelStorage.cs:line 31
+   at Adastra.TrainForm..ctor(IFeatureGenerator fg) in c:\Users\Sandy\My Own\program TA\adastra-2.5.1-src\adastra-2.5.1-src\src\Adastra\Forms\TrainForm.cs:line 90
+   at Adastra.MainForm.buttonStart_Click(Object sender, EventArgs e) in c:\Users\Sandy\My Own\program TA\adastra-2.5.1-src\adastra-2.5.1-src\src\Adastra\Forms\MainForm.cs:line 142

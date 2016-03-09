@@ -1,0 +1,6 @@
+C:\Users\Sandy\My Own\program TA\adastra-2.5.1-src\adastra-2.5.1-src\src\Accord24\Accord.MachineLearning\bin\Debug\Accord.MachineLearning.dll
+C:\Users\Sandy\My Own\program TA\adastra-2.5.1-src\adastra-2.5.1-src\src\Accord24\Accord.MachineLearning\bin\Debug\Accord.MachineLearning.pdb
+C:\Users\Sandy\My Own\program TA\adastra-2.5.1-src\adastra-2.5.1-src\src\Accord24\Accord.MachineLearning\bin\Debug\AForge.dll
+C:\Users\Sandy\My Own\program TA\adastra-2.5.1-src\adastra-2.5.1-src\src\Accord24\Accord.MachineLearning\obj\Debug\Accord.MachineLearning.csprojResolveAssemblyReference.cache
+C:\Users\Sandy\My Own\program TA\adastra-2.5.1-src\adastra-2.5.1-src\src\Accord24\Accord.MachineLearning\obj\Debug\Accord.MachineLearning.dll
+C:\Users\Sandy\My Own\program TA\adastra-2.5.1-src\adastra-2.5.1-src\src\Accord24\Accord.MachineLearning\obj\Debug\Accord.MachineLearning.pdb
