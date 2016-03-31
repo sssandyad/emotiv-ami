@@ -14,6 +14,8 @@ namespace EEG_EMOTIV_CONTROLLER
         int totalChannels;
         Dictionary<string, double[]> eegData;
 
+        const int IIR_TC = 256;
+
         int counter;
 
         public Form1()
@@ -30,6 +32,7 @@ namespace EEG_EMOTIV_CONTROLLER
                 chartEeg.Series.Add(channelsEeg[i]);
                 chartEeg.Series[channelsEeg[i]].ChartType = SeriesChartType.Line;
             }
+            //chartEeg.ChartAreas[0].AxisY.Minimum = 3800;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -51,7 +54,7 @@ namespace EEG_EMOTIV_CONTROLLER
                     eegDataFileName = ofd.FileName;
                     eegDataFromFile = File.ReadAllLines(eegDataFileName);
 
-                    int totalRecordsData = eegDataFileName.Count() - 1;
+                    int totalRecordsData = eegDataFileName.Count() - 2;
 
                     eegData = new Dictionary<string, double[]>();
 
@@ -60,12 +63,27 @@ namespace EEG_EMOTIV_CONTROLLER
                         eegData.Add(channelsEeg[i], new double[totalRecordsData]);
                     }
 
+                    /*
+                    The data returned is the voltage (in microvolts) for each channel, at each time sample.
+                    You get 128 samples per sec, and you need to remove the DC offset from the data
+                    (about 4200uV but it drifts around a little, so you need a filter or running average subtraction)
+                    */
+                    double[] back = new double[14];
+                    string[] firstRecord = eegDataFromFile[1].Split(',');
+                    for (int i = 0; i < 14; i++)
+                    {
+                        back[i] = double.Parse(firstRecord[i]);
+                    }
+
+                    double value;
                     for (int i = 0; i < totalRecordsData; i++)
                     {
-                        string[] record = eegDataFromFile[i+1].Split(',');
+                        string[] record = eegDataFromFile[i+2].Split(',');
                         for (int j = 0; j < totalChannels; j++)
                         {
-                            eegData[channelsEeg[j]][i] = double.Parse(record[j + 2]);
+                            value = double.Parse(record[j]);
+                            back[j] = (back[j] * (IIR_TC - 1) + value) / IIR_TC; // IIR filter
+                            eegData[channelsEeg[j]][i] = value - back[j]; // remove DC offset 
                         }
                     }
                 }
@@ -80,8 +98,6 @@ namespace EEG_EMOTIV_CONTROLLER
         {
             timer.Enabled = true;
             timer.Interval = 8;
-
-
         }
 
         private void timer_Tick(object sender, EventArgs e)
