@@ -1,6 +1,6 @@
 ﻿namespace backpropagation
 {
-    partial class Form1
+    partial class form1
     {
         /// <summary>
         /// Required designer variable.
@@ -41,6 +41,12 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.buttonStart = new System.Windows.Forms.Button();
+            this.tb_wa = new System.Windows.Forms.TextBox();
+            this.tb_wc = new System.Windows.Forms.TextBox();
+            this.tb_wb = new System.Windows.Forms.TextBox();
+            this.tb_hiddenLayer2 = new System.Windows.Forms.TextBox();
+            this.tb_hiddenLayer1 = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // tb_x1
@@ -153,11 +159,67 @@
             this.buttonStart.UseVisualStyleBackColor = true;
             this.buttonStart.Click += new System.EventHandler(this.buttonStart_Click);
             // 
-            // Form1
+            // tb_wa
+            // 
+            this.tb_wa.Location = new System.Drawing.Point(203, 25);
+            this.tb_wa.Name = "tb_wa";
+            this.tb_wa.Size = new System.Drawing.Size(20, 20);
+            this.tb_wa.TabIndex = 13;
+            this.tb_wa.Text = "0.1";
+            // 
+            // tb_wc
+            // 
+            this.tb_wc.Location = new System.Drawing.Point(255, 25);
+            this.tb_wc.Name = "tb_wc";
+            this.tb_wc.Size = new System.Drawing.Size(20, 20);
+            this.tb_wc.TabIndex = 14;
+            this.tb_wc.Text = "0.1";
+            // 
+            // tb_wb
+            // 
+            this.tb_wb.Location = new System.Drawing.Point(229, 25);
+            this.tb_wb.Name = "tb_wb";
+            this.tb_wb.Size = new System.Drawing.Size(20, 20);
+            this.tb_wb.TabIndex = 15;
+            this.tb_wb.Text = "0.1";
+            // 
+            // tb_hiddenLayer2
+            // 
+            this.tb_hiddenLayer2.Location = new System.Drawing.Point(483, 235);
+            this.tb_hiddenLayer2.Name = "tb_hiddenLayer2";
+            this.tb_hiddenLayer2.Size = new System.Drawing.Size(47, 20);
+            this.tb_hiddenLayer2.TabIndex = 16;
+            this.tb_hiddenLayer2.Text = "3";
+            // 
+            // tb_hiddenLayer1
+            // 
+            this.tb_hiddenLayer1.Location = new System.Drawing.Point(430, 235);
+            this.tb_hiddenLayer1.Name = "tb_hiddenLayer1";
+            this.tb_hiddenLayer1.Size = new System.Drawing.Size(47, 20);
+            this.tb_hiddenLayer1.TabIndex = 17;
+            this.tb_hiddenLayer1.Text = "3";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(17, 217);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 18;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(920, 439);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.tb_hiddenLayer1);
+            this.Controls.Add(this.tb_hiddenLayer2);
+            this.Controls.Add(this.tb_wb);
+            this.Controls.Add(this.tb_wc);
+            this.Controls.Add(this.tb_wa);
             this.Controls.Add(this.buttonStart);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -171,7 +233,7 @@
             this.Controls.Add(this.tb_x2);
             this.Controls.Add(this.tb_y1);
             this.Controls.Add(this.tb_x1);
-            this.Name = "Form1";
+            this.Name = "form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
@@ -194,6 +256,12 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button buttonStart;
+        private System.Windows.Forms.TextBox tb_wa;
+        private System.Windows.Forms.TextBox tb_wc;
+        private System.Windows.Forms.TextBox tb_wb;
+        private System.Windows.Forms.TextBox tb_hiddenLayer2;
+        private System.Windows.Forms.TextBox tb_hiddenLayer1;
+        private System.Windows.Forms.Button button1;
     }
 }
 
