@@ -9,6 +9,8 @@ namespace backpropagation
     class Pointer
     {
         public double weight;
+        public double deltaWeight;
+        public double portionError;
         public Neuron front;
         public Neuron back;
 
