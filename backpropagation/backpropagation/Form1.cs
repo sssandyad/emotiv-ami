@@ -41,6 +41,8 @@ namespace backpropagation
         public form1()
         {
             InitializeComponent();
+
+            timer1.Enabled = false;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -279,6 +281,13 @@ namespace backpropagation
         }
 
         private void button2_Click(object sender, EventArgs e)
+        {
+            //RunBackpropagation();
+            timer1.Enabled = true;
+            
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
         {
             RunBackpropagation();
             textBoxIterasi.Text = (++counter).ToString();

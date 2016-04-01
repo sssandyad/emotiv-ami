@@ -341,6 +341,11 @@
             this.label12.TabIndex = 25;
             this.label12.Text = "MSE";
             // 
+            // timer1
+            // 
+            this.timer1.Interval = 10;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(17, 230);
