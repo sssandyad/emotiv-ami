@@ -19,12 +19,13 @@ namespace backpropagation
 
         double mse;
         int counter;
+        bool isStop= false;
 
         double[] dataX;
         double[] dataY;
         double[] kelas;
 
-        double learningRate = 0.01;
+        double learningRate;
 
         double[] nilaiAcuanX;
         double[] nilaiAcuanY;
@@ -42,7 +43,12 @@ namespace backpropagation
         {
             InitializeComponent();
 
+            buttonPause.Enabled = false;
+            buttonStop.Enabled = false;
+            buttonFast.Enabled = false;
+
             timer1.Enabled = false;
+            isStop = true;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -52,10 +58,22 @@ namespace backpropagation
 
         private void button1_Click(object sender, EventArgs e)
         {
-            BuildData();
+            buttonPlay.Enabled = false;
+            buttonFast.Enabled = true;
+            buttonPause.Enabled = true;
+            buttonStop.Enabled = true;
 
-            ConstructNetwork();
+            if (isStop)
+            {
+                BuildData();
 
+                ConstructNetwork();
+
+                isStop = false;
+            }
+
+            timer1.Interval = 500;
+            timer1.Enabled = true;
         }
 
         void RunBackpropagation()
@@ -63,8 +81,11 @@ namespace backpropagation
             mse = 0;
             for (int i = 0; i < 40; i++)
             {
+                /*feed forward*/
+
+                //masukkan data random ke neuron input
                 input[0].value = dataX[i];
-                input[1].value = dataY[i];
+                input[1].value = dataY[i];  
 
                 //layer 1
                 for (int j = 0; j < layerPertama.Count; j++)
@@ -282,7 +303,12 @@ namespace backpropagation
 
         private void button2_Click(object sender, EventArgs e)
         {
+            buttonFast.Enabled = false;
+            buttonPlay.Enabled = true;
+            buttonStop.Enabled = true;
+            buttonPause.Enabled = true;
             //RunBackpropagation();
+            timer1.Interval = 10;
             timer1.Enabled = true;
             
         }
@@ -291,6 +317,30 @@ namespace backpropagation
         {
             RunBackpropagation();
             textBoxIterasi.Text = (++counter).ToString();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            buttonPause.Enabled = false;
+            buttonPlay.Enabled = true;
+            buttonFast.Enabled = true;
+            buttonStop.Enabled = true;
+
+            timer1.Enabled = false;
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            buttonStop.Enabled = false;
+            buttonPlay.Enabled = true;
+            buttonPause.Enabled = false;
+            buttonFast.Enabled = false;
+
+            textBoxError.Clear();
+            textBoxIterasi.Clear();
+
+            timer1.Enabled = false;
+            isStop = true;
         }
     }
 }
