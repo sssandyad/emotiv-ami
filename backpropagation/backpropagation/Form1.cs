@@ -17,9 +17,15 @@ namespace backpropagation
         List<Neuron> layerKedua;
         List<Neuron> output;
 
+        Bitmap grafik;
+        Graphics flagGraphics;
+        List<Brush> warna;
+
+
         double mse;
         int counter;
         bool isStop= false;
+        double plusMinus;
 
         double[] dataX;
         double[] dataY;
@@ -43,12 +49,29 @@ namespace backpropagation
         {
             InitializeComponent();
 
+            warna = new List<Brush>();
+            warna.Add(Brushes.Red);
+            warna.Add(Brushes.Blue);
+            warna.Add(Brushes.Green);
+            warna.Add(Brushes.Yellow);
+
+
             buttonPause.Enabled = false;
             buttonStop.Enabled = false;
             buttonFast.Enabled = false;
 
             timer1.Enabled = false;
             isStop = true;
+
+            grafik = new Bitmap(200, 200);
+            flagGraphics = Graphics.FromImage(grafik);
+
+            flagGraphics.FillRectangle(Brushes.White, 0, 0, 200, 200);
+            flagGraphics.FillRectangle(Brushes.Black, 99, 0, 2, 200);
+            flagGraphics.FillRectangle(Brushes.Black, 0, 99, 200, 2);
+            pictureBox4.Image = grafik;
+
+            pictureBox4.SizeMode = PictureBoxSizeMode.AutoSize;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -58,6 +81,7 @@ namespace backpropagation
 
         private void button1_Click(object sender, EventArgs e)
         {
+           
             buttonPlay.Enabled = false;
             buttonFast.Enabled = true;
             buttonPause.Enabled = true;
@@ -71,6 +95,8 @@ namespace backpropagation
 
                 isStop = false;
             }
+
+            pictureBox4.Invalidate();
 
             timer1.Interval = 500;
             timer1.Enabled = true;
@@ -193,6 +219,9 @@ namespace backpropagation
         {
             outputYangDiinginkan = new double[2];
 
+            plusMinus = double.Parse(textBoxRandom.Text);
+            double maxRandom = plusMinus * 100 - 1;
+
             counter = 0;
 
             learningRate = double.Parse(textBoxRate.Text);
@@ -225,15 +254,18 @@ namespace backpropagation
             double nilaiRandom = 0;
             for (int i = 0; i < 40; i++)
             {
-                nilaiRandom = rand.Next(0, 9) * 0.1 + rand.Next(0, 9) * 0.01;
-                dataX[i] = nilaiAcuanX[i / 10] - 0.5 + nilaiRandom;
+                nilaiRandom = rand.Next(0, (int)maxRandom) * 0.01;
+                dataX[i] = nilaiAcuanX[i / 10] - plusMinus / 2 + nilaiRandom;
 
-                nilaiRandom = rand.Next(0, 9) * 0.1 + rand.Next(0, 9) * 0.01;
-                dataY[i] = nilaiAcuanY[i / 10] - 0.5 + nilaiRandom;
+                nilaiRandom = rand.Next(0, (int)maxRandom) * 0.01;
+                dataY[i] = nilaiAcuanY[i / 10] - plusMinus / 2 + nilaiRandom;
 
                 kelas[i] = i / 10 + 1;
 
-                //Console.WriteLine("(" + dataX[i] + "," + dataY[i] + ") = " + output[i]);
+                flagGraphics.FillPie(warna[i/10], (int)(dataX[i]*100/10-2+100), (int)(dataY[i]*100/10-2+100), 5, 5, 0, 360);
+                //MessageBox.Show((dataX[i] * 100 / 10 - 2 + 100).ToString() + " " + (dataY[i] * 100 / 10 - 2 + 100).ToString());
+
+                Console.WriteLine("(" + dataX[i] + "," + dataY[i] + ") = " + kelas[i]);
             }
         }
 
