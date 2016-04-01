@@ -51,8 +51,8 @@ namespace backpropagation
 
             warna = new List<Brush>();
             warna.Add(Brushes.Red);
-            warna.Add(Brushes.Blue);
             warna.Add(Brushes.Green);
+            warna.Add(Brushes.Blue);
             warna.Add(Brushes.Yellow);
 
 
@@ -262,7 +262,7 @@ namespace backpropagation
 
                 kelas[i] = i / 10 + 1;
 
-                flagGraphics.FillPie(warna[i/10], (int)(dataX[i]*100/10-2+100), (int)(dataY[i]*100/10-2+100), 5, 5, 0, 360);
+                flagGraphics.FillPie(warna[i/10], (int)(dataX[i]*100/10-2+100), (int)(-1*dataY[i]*100/10-2+100), 5, 5, 0, 360);
                 //MessageBox.Show((dataX[i] * 100 / 10 - 2 + 100).ToString() + " " + (dataY[i] * 100 / 10 - 2 + 100).ToString());
 
                 Console.WriteLine("(" + dataX[i] + "," + dataY[i] + ") = " + kelas[i]);
