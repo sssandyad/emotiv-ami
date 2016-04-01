@@ -18,6 +18,7 @@ namespace backpropagation
         List<Neuron> output;
 
         double mse;
+        int counter;
 
         double[] dataX;
         double[] dataY;
@@ -169,6 +170,8 @@ namespace backpropagation
         {
             outputYangDiinginkan = new double[2];
 
+            counter = 0;
+
             learningRate = double.Parse(textBoxRate.Text);
 
             dataX = new double[40];
@@ -278,6 +281,7 @@ namespace backpropagation
         private void button2_Click(object sender, EventArgs e)
         {
             RunBackpropagation();
+            textBoxIterasi.Text = (++counter).ToString();
         }
     }
 }

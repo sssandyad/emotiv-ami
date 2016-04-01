@@ -67,6 +67,8 @@
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.textBoxIterasi = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -384,11 +386,29 @@
             this.label15.TabIndex = 30;
             this.label15.Text = "jumlah variabel";
             // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(444, 22);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(49, 13);
+            this.label16.TabIndex = 31;
+            this.label16.Text = "iterasi ke";
+            // 
+            // textBoxIterasi
+            // 
+            this.textBoxIterasi.Location = new System.Drawing.Point(499, 19);
+            this.textBoxIterasi.Name = "textBoxIterasi";
+            this.textBoxIterasi.Size = new System.Drawing.Size(49, 20);
+            this.textBoxIterasi.TabIndex = 32;
+            // 
             // form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(920, 439);
+            this.Controls.Add(this.textBoxIterasi);
+            this.Controls.Add(this.label16);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.label13);
@@ -477,6 +497,8 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox textBoxIterasi;
     }
 }
 
