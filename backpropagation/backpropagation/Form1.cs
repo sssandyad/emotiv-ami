@@ -17,6 +17,9 @@ namespace backpropagation
         List<Neuron> layerKedua;
         List<Neuron> layerOutput;
 
+        Bitmap jaring;
+        Graphics gambarJaring;
+
         Bitmap grafik;
         Graphics flagGraphics;
         List<Brush> warna;
@@ -60,6 +63,7 @@ namespace backpropagation
             buttonPause.Enabled = false;
             buttonStop.Enabled = false;
             buttonFast.Enabled = false;
+            buttonNetwork.Enabled = false;
 
             timer1.Enabled = false;
             isStop = true;
@@ -70,9 +74,21 @@ namespace backpropagation
             flagGraphics.FillRectangle(Brushes.White, 0, 0, 200, 200);
             flagGraphics.FillRectangle(Brushes.Black, 99, 0, 2, 200);
             flagGraphics.FillRectangle(Brushes.Black, 0, 99, 200, 2);
+
             pictureBox4.Image = grafik;
 
             pictureBox4.SizeMode = PictureBoxSizeMode.AutoSize;
+
+            jaring = new Bitmap(1000, 600);
+            gambarJaring = Graphics.FromImage(jaring);
+            gambarJaring.FillRectangle(Brushes.White, 0, 0, 1000, 600);
+            gambarJaring.FillRectangle(Brushes.LightSalmon, 250, 0, 250, 600);
+            gambarJaring.FillRectangle(Brushes.LightBlue, 500, 0, 250, 600);
+
+            Pen blackPen = new Pen(Color.Black, 3);
+            gambarJaring.DrawLine(blackPen,250,0,250,600);
+            gambarJaring.DrawLine(blackPen, 500, 0, 500, 600);
+            gambarJaring.DrawLine(blackPen, 750, 0, 750, 600);
 
             chart1.Series.Add("error");
             chart1.Series["error"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
@@ -91,6 +107,9 @@ namespace backpropagation
             buttonFast.Enabled = true;
             buttonPause.Enabled = true;
             buttonStop.Enabled = true;
+            buttonGenerateBobot.Enabled = false;
+            buttonGenerateData.Enabled = false;
+            buttonNetwork.Enabled = true;
 
             if (isStop)
             {
@@ -336,27 +355,33 @@ namespace backpropagation
         {
             //construct layer layerInput. ada 2 layerInput
             layerInput = new List<Neuron>();
-            layerInput.Add(new Neuron());
-            layerInput.Add(new Neuron());
+            layerInput.Add(new Neuron(125,200));
+            layerInput.Add(new Neuron(125,400));
 
             //construct hidden layer pertama
             layerPertama = new List<Neuron>();
+            int jumpValue = 600 / (jumlahVariableHiddenLayer1+1);
+            int pivot = jumpValue;
             for (int i = 0; i < jumlahVariableHiddenLayer1; i++)
             {
-                layerPertama.Add(new Neuron());
+                layerPertama.Add(new Neuron(375, pivot));
+                pivot += jumpValue;
             }
 
             //construct hidden layer kedua
+            jumpValue = 600 / (jumlahVariableHiddenLayer2+1);
+            pivot = jumpValue;
             layerKedua = new List<Neuron>();
             for (int i = 0; i < jumlahVariableHiddenLayer2; i++)
             {
-                layerKedua.Add(new Neuron());
+                layerKedua.Add(new Neuron(625,pivot));
+                pivot += jumpValue;
             }
 
             //construct layer layerOutput. ada 2 layerOutput.
             layerOutput = new List<Neuron>();
-            layerOutput.Add(new Neuron());
-            layerOutput.Add(new Neuron());
+            layerOutput.Add(new Neuron(875,200));
+            layerOutput.Add(new Neuron(875,400));
 
             /*merangkai neuron dan memberinya bobot. bobot berdasarkan inputan Wa, Wb, Wc*/
 
@@ -398,6 +423,8 @@ namespace backpropagation
                     layerOutput[j].backwardPointer.Add(p);
                 }
             }
+
+            DrawNeuralNetwork();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -410,6 +437,55 @@ namespace backpropagation
             timer1.Interval = 10;
             timer1.Enabled = true;
             
+        }
+
+        void DrawNeuralNetwork()
+        {
+            for (int i = 0; i < layerInput.Count; i++)
+            {
+                gambarJaring.FillRectangle(Brushes.Yellow, layerInput[i].location.X - 10, layerInput[i].location.Y - 10, 20, 20);
+            }
+
+            for (int i = 0; i < layerOutput.Count; i++)
+            {
+                gambarJaring.FillRectangle(Brushes.Green, layerOutput[i].location.X - 10, layerOutput[i].location.Y - 10, 20, 20);
+            }
+
+            for (int i=0;i<layerPertama.Count;i++)
+            {
+                gambarJaring.FillEllipse(Brushes.Red, layerPertama[i].location.X - 5, layerPertama[i].location.Y - 5, 10, 10);
+            }
+
+            for (int i = 0; i < layerKedua.Count; i++)
+            {
+                gambarJaring.FillEllipse(Brushes.Red, layerKedua[i].location.X - 5, layerKedua[i].location.Y - 5, 10, 10);
+            }
+
+            Pen pen = new Pen(Color.Black, 1);
+
+            for (int i = 0;i<layerInput.Count;i++)
+            {
+                for (int j=0;j<layerInput[i].forwardPointer.Count;j++)
+                {
+                    gambarJaring.DrawLine(pen, layerInput[i].location, layerInput[i].forwardPointer[j].front.location);
+                }
+            }
+
+            for (int i = 0; i < layerPertama.Count; i++)
+            {
+                for (int j = 0; j < layerPertama[i].forwardPointer.Count; j++)
+                {
+                    gambarJaring.DrawLine(pen, layerPertama[i].location, layerPertama[i].forwardPointer[j].front.location);
+                }
+            }
+
+            for (int i = 0; i < layerKedua.Count; i++)
+            {
+                for (int j = 0; j < layerKedua[i].forwardPointer.Count; j++)
+                {
+                    gambarJaring.DrawLine(pen, layerKedua[i].location, layerKedua[i].forwardPointer[j].front.location);
+                }
+            }
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -438,6 +514,9 @@ namespace backpropagation
             buttonPlay.Enabled = true;
             buttonPause.Enabled = false;
             buttonFast.Enabled = false;
+            buttonGenerateData.Enabled = true;
+            buttonGenerateBobot.Enabled = true;
+            buttonNetwork.Enabled = false;
 
             textBoxError.Clear();
             textBoxIterasi.Clear();
@@ -451,6 +530,8 @@ namespace backpropagation
         {
             isStop = false;
 
+            buttonNetwork.Enabled = true;
+
             BuildData();
 
             ConstructNetwork();
@@ -461,6 +542,18 @@ namespace backpropagation
         private void buttonGenerateBobot_Click(object sender, EventArgs e)
         {
             GenerateBobot();
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            Form hiddenLayer2 = new Form2(jaring);
+            hiddenLayer2.Show();
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            Form hiddenLayer2 = new Form2(jaring);
+            hiddenLayer2.Show();
         }
     }
 }
