@@ -205,18 +205,22 @@ namespace backpropagation
 
                 for (int j=0;j<layerKedua.Count;j++)
                 {
+                    layerKedua[j].delta = 0;
                     for (int k=0;k<layerKedua[j].forwardPointer.Count;k++)
                     {
-                        layerKedua[j].delta = layerKedua[j].forwardPointer[k].front.delta * layerKedua[j].forwardPointer[k].weight * layerKedua[j].derivativeBinarySigmoid;
+                        layerKedua[j].delta += layerKedua[j].forwardPointer[k].front.delta * layerKedua[j].forwardPointer[k].weight;
                     }
+                    layerKedua[j].delta *= layerKedua[j].derivativeBinarySigmoid;
                 }
 
                 for (int j = 0; j < layerPertama.Count; j++)
                 {
+                    layerPertama[j].delta = 0;
                     for (int k = 0; k < layerPertama[j].forwardPointer.Count; k++)
                     {
-                        layerPertama[j].delta = layerPertama[j].forwardPointer[k].front.delta * layerPertama[j].forwardPointer[k].weight * layerPertama[j].derivativeBinarySigmoid;
+                        layerPertama[j].delta = layerPertama[j].forwardPointer[k].front.delta * layerPertama[j].forwardPointer[k].weight;
                     }
+                    layerPertama[j].delta *= layerPertama[j].derivativeBinarySigmoid;
                 }
 
 
