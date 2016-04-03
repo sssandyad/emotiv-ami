@@ -6,15 +6,13 @@ using System.Threading.Tasks;
 
 namespace backpropagation
 {
-    class Pointer
+    class Edge
     {
         public double weight;
-        public double deltaWeight;
-        public double portionError;
         public Neuron front;
         public Neuron back;
 
-        public Pointer(double w)
+        public Edge(double w)
         {
             weight = w;
         }
