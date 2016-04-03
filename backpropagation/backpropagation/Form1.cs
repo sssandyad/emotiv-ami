@@ -332,6 +332,8 @@ namespace backpropagation
             jumlahVariableHiddenLayer1 = int.Parse(tb_hiddenLayer1.Text);
             jumlahVariableHiddenLayer2 = int.Parse(tb_hiddenLayer2.Text);
 
+            alpha = double.Parse(textBoxAlpha.Text);
+
             Random rand = new Random();
             double nilaiRandom = 0;
             for (int i = 0; i < 40; i++)
