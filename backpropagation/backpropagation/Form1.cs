@@ -574,7 +574,7 @@ namespace backpropagation
         {
             RunBackpropagation();
             textBoxIterasi.Text = (++counter).ToString();
-            if(int.Parse(textBoxMax.Text) <= int.Parse(textBoxIterasi.Text) || double.Parse(textBoxLimitError.Text) >= mse)
+            if(double.Parse(textBoxLimitError.Text) >= mse)
             {
                 timer1.Enabled = false;
             }

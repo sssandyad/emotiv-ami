@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend7 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend8 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea9 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend9 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea10 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend10 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.tb_x1 = new System.Windows.Forms.TextBox();
             this.tb_y1 = new System.Windows.Forms.TextBox();
             this.tb_y2 = new System.Windows.Forms.TextBox();
@@ -102,8 +102,6 @@
             this.buttonGenerateData = new System.Windows.Forms.Button();
             this.buttonGenerateBobot = new System.Windows.Forms.Button();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.textBoxMax = new System.Windows.Forms.TextBox();
-            this.label24 = new System.Windows.Forms.Label();
             this.textBoxLimitError = new System.Windows.Forms.TextBox();
             this.label25 = new System.Windows.Forms.Label();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
@@ -713,36 +711,19 @@
             // 
             // chart1
             // 
-            chartArea7.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea7);
-            legend7.Name = "Legend1";
-            this.chart1.Legends.Add(legend7);
+            chartArea9.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea9);
+            legend9.Name = "Legend1";
+            this.chart1.Legends.Add(legend9);
             this.chart1.Location = new System.Drawing.Point(887, 30);
             this.chart1.Name = "chart1";
             this.chart1.Size = new System.Drawing.Size(346, 208);
             this.chart1.TabIndex = 59;
             this.chart1.Text = "chart1";
             // 
-            // textBoxMax
-            // 
-            this.textBoxMax.Location = new System.Drawing.Point(1166, 393);
-            this.textBoxMax.Name = "textBoxMax";
-            this.textBoxMax.Size = new System.Drawing.Size(67, 20);
-            this.textBoxMax.TabIndex = 61;
-            this.textBoxMax.Text = "1000000";
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(1075, 396);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(80, 13);
-            this.label24.TabIndex = 60;
-            this.label24.Text = "maksimal iterasi";
-            // 
             // textBoxLimitError
             // 
-            this.textBoxLimitError.Location = new System.Drawing.Point(1130, 419);
+            this.textBoxLimitError.Location = new System.Drawing.Point(1130, 397);
             this.textBoxLimitError.Name = "textBoxLimitError";
             this.textBoxLimitError.Size = new System.Drawing.Size(103, 20);
             this.textBoxLimitError.TabIndex = 63;
@@ -751,7 +732,7 @@
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(1075, 422);
+            this.label25.Location = new System.Drawing.Point(1075, 400);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(48, 13);
             this.label25.TabIndex = 62;
@@ -807,7 +788,7 @@
             // 
             // textBoxAlpha
             // 
-            this.textBoxAlpha.Location = new System.Drawing.Point(1127, 445);
+            this.textBoxAlpha.Location = new System.Drawing.Point(1127, 423);
             this.textBoxAlpha.Name = "textBoxAlpha";
             this.textBoxAlpha.Size = new System.Drawing.Size(106, 20);
             this.textBoxAlpha.TabIndex = 66;
@@ -816,7 +797,7 @@
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(1075, 448);
+            this.label26.Location = new System.Drawing.Point(1075, 426);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(42, 13);
             this.label26.TabIndex = 65;
@@ -824,10 +805,10 @@
             // 
             // chart2
             // 
-            chartArea8.Name = "ChartArea1";
-            this.chart2.ChartAreas.Add(chartArea8);
-            legend8.Name = "Legend1";
-            this.chart2.Legends.Add(legend8);
+            chartArea10.Name = "ChartArea1";
+            this.chart2.ChartAreas.Add(chartArea10);
+            legend10.Name = "Legend1";
+            this.chart2.Legends.Add(legend10);
             this.chart2.Location = new System.Drawing.Point(381, 30);
             this.chart2.Name = "chart2";
             this.chart2.Size = new System.Drawing.Size(469, 211);
@@ -940,8 +921,6 @@
             this.Controls.Add(this.buttonNetwork);
             this.Controls.Add(this.textBoxLimitError);
             this.Controls.Add(this.label25);
-            this.Controls.Add(this.textBoxMax);
-            this.Controls.Add(this.label24);
             this.Controls.Add(this.chart1);
             this.Controls.Add(this.buttonGenerateBobot);
             this.Controls.Add(this.buttonGenerateData);
@@ -1102,8 +1081,6 @@
         private System.Windows.Forms.Button buttonGenerateData;
         private System.Windows.Forms.Button buttonGenerateBobot;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
-        private System.Windows.Forms.TextBox textBoxMax;
-        private System.Windows.Forms.Label label24;
         private System.Windows.Forms.TextBox textBoxLimitError;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Button buttonNetwork;
