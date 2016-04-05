@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace backpropagation
 {
@@ -16,6 +17,12 @@ namespace backpropagation
         List<Neuron> layerPertama;
         List<Neuron> layerKedua;
         List<Neuron> layerOutput;
+        List<String> status;
+
+        int index;
+        int totalTrial;
+
+        List<Color> colors;
 
         Bitmap jaring;
         Graphics gambarJaring;
@@ -52,11 +59,23 @@ namespace backpropagation
         {
             InitializeComponent();
 
+            index = 0;
+            totalTrial = 0;
+
             warna = new List<Brush>();
             warna.Add(Brushes.Red);
             warna.Add(Brushes.Green);
             warna.Add(Brushes.Blue);
             warna.Add(Brushes.Yellow);
+
+            colors = new List<Color>();
+            var rainbow = Enum.GetValues(typeof(KnownColor));
+            foreach (KnownColor knowColor in rainbow)
+            {
+                colors.Add(Color.FromKnownColor(knowColor));
+            }
+
+            status = new List<string>();
 
             alpha = 1;
 
@@ -64,6 +83,9 @@ namespace backpropagation
             buttonStop.Enabled = false;
             buttonFast.Enabled = false;
             buttonNetwork.Enabled = false;
+
+            buttonPrev.Enabled = false;
+            buttonNext.Enabled = false;
 
             timer1.Enabled = false;
             isStop = true;
@@ -90,15 +112,35 @@ namespace backpropagation
             gambarJaring.DrawLine(blackPen, 500, 0, 500, 600);
             gambarJaring.DrawLine(blackPen, 750, 0, 750, 600);
 
-            chart1.Series.Add("error");
-            chart1.Series["error"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-
             GenerateBobot();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        void UpdateButtonTrial()
+        {
+            if (index == 0)
+            {
+                buttonPrev.Enabled = false;
+            }
+            else
+            {
+                buttonPrev.Enabled = true;
+            }
+
+            if(totalTrial-1==index)
+            {
+                buttonNext.Enabled = false;                
+            }
+            else
+            {
+                buttonNext.Enabled = true;
+            }
+
+            labelTrial.Text = status[index];
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -111,6 +153,14 @@ namespace backpropagation
             buttonGenerateData.Enabled = false;
             buttonNetwork.Enabled = true;
 
+            if(totalTrial!=0)
+            {
+                chart1.Series[index].Enabled = false;
+            }
+
+            totalTrial++;
+            index = totalTrial - 1;
+
             if (isStop)
             {
                 BuildData();
@@ -119,6 +169,23 @@ namespace backpropagation
 
                 isStop = false;
             }
+
+            UpdateButtonTrial();
+
+            Random rand = new Random();
+            var warnaGrafik = colors[rand.Next(colors.Count - 1)];
+
+            Series series = new Series();
+            series.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series.Color = warnaGrafik;
+            series.IsVisibleInLegend = false;
+            chart1.Series.Add(series);
+
+            Series global = new Series();
+            global.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            global.Color = warnaGrafik;
+            global.LegendText = "percobaan " + (index + 1).ToString();
+            chart2.Series.Add(global);
 
             pictureBox4.Invalidate();
 
@@ -275,7 +342,8 @@ namespace backpropagation
 
             mse /= 80;
             textBoxError.Text = mse.ToString();
-            chart1.Series["error"].Points.AddY(mse);
+            chart1.Series[index].Points.AddY(mse);
+            chart2.Series[index].Points.AddY(mse);
 
         }
 
@@ -331,6 +399,9 @@ namespace backpropagation
 
             jumlahVariableHiddenLayer1 = int.Parse(tb_hiddenLayer1.Text);
             jumlahVariableHiddenLayer2 = int.Parse(tb_hiddenLayer2.Text);
+
+            string stringJumlahVariable = "Percobaan ke: " + totalTrial.ToString() + "  |  hidden layer #1: " + tb_hiddenLayer1.Text + "  |  hidden layer #2: " + tb_hiddenLayer2.Text;
+            status.Add(stringJumlahVariable);
 
             alpha = double.Parse(textBoxAlpha.Text);
 
@@ -431,12 +502,21 @@ namespace backpropagation
 
         private void button2_Click(object sender, EventArgs e)
         {
-            buttonFast.Enabled = false;
-            buttonPlay.Enabled = true;
+            buttonFast.Enabled = true;
+            buttonPlay.Enabled = false;
             buttonStop.Enabled = true;
             buttonPause.Enabled = true;
             //RunBackpropagation();
-            timer1.Interval = 10;
+            if (timer1.Interval == 500)
+            {
+                timer1.Interval = 10;
+                buttonFast.Text = "slow";
+            }
+            else
+            {
+                timer1.Interval = 500;
+                buttonFast.Text = "fast";
+            }
             timer1.Enabled = true;
             
         }
@@ -500,17 +580,7 @@ namespace backpropagation
             }
         }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            buttonPause.Enabled = false;
-            buttonPlay.Enabled = true;
-            buttonFast.Enabled = true;
-            buttonStop.Enabled = true;
-
-            timer1.Enabled = false;
-        }
-
-        private void button4_Click(object sender, EventArgs e)
+        void StopIteration()
         {
             buttonStop.Enabled = false;
             buttonPlay.Enabled = true;
@@ -522,10 +592,33 @@ namespace backpropagation
 
             textBoxError.Clear();
             textBoxIterasi.Clear();
-            chart1.Series["error"].Points.Clear();
 
             timer1.Enabled = false;
             isStop = true;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            buttonPause.Enabled = true;
+            buttonFast.Enabled = true;
+            buttonStop.Enabled = true;
+
+            if (timer1.Enabled)
+            {
+                timer1.Enabled = false;
+                buttonPause.Text = "play";
+            }
+            else
+            {
+                timer1.Enabled = true;
+                buttonPause.Text = "pause";
+            }
+            
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            StopIteration();
         }
 
         private void buttonGenerateData_Click(object sender, EventArgs e)
@@ -556,6 +649,61 @@ namespace backpropagation
         {
             Form hiddenLayer2 = new Form2(jaring);
             hiddenLayer2.Show();
+        }
+
+        private void buttonFirstVariableDown_Click(object sender, EventArgs e)
+        {
+            StopIteration();
+
+            int value = int.Parse(tb_hiddenLayer1.Text);
+            tb_hiddenLayer1.Text = ((value < 2) ? 0 : --value).ToString();
+        }
+
+        private void buttonFirstVariableUp_Click(object sender, EventArgs e)
+        {
+            StopIteration();
+
+            int value = int.Parse(tb_hiddenLayer1.Text);
+            tb_hiddenLayer1.Text = (++value).ToString();
+        }
+
+        private void buttonSecondVariableDown_Click(object sender, EventArgs e)
+        {
+            StopIteration();
+
+            int value = int.Parse(tb_hiddenLayer2.Text);
+            tb_hiddenLayer2.Text = ((value < 2) ? 0 : --value).ToString();
+        }
+
+        private void buttonSecondVariableUp_Click(object sender, EventArgs e)
+        {
+            StopIteration();
+
+            int value = int.Parse(tb_hiddenLayer2.Text);
+            tb_hiddenLayer2.Text = (++value).ToString();
+        }
+
+        private void buttonPrev_Click(object sender, EventArgs e)
+        {
+            chart1.Series[index].Enabled = false;
+            if (index > 0)
+                --index;
+            UpdateButtonTrial();
+            chart1.Series[index].Enabled = true;
+        }
+
+        private void button1_Click_2(object sender, EventArgs e)
+        {
+            totalTrial++;
+        }
+
+        private void buttonNext_Click(object sender, EventArgs e)
+        {
+            chart1.Series[index].Enabled = false;
+            if (index < totalTrial-1)
+                ++index;
+            UpdateButtonTrial();
+            chart1.Series[index].Enabled = true;
         }
     }
 }
