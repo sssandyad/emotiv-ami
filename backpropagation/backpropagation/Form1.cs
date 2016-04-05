@@ -589,6 +589,8 @@ namespace backpropagation
             buttonGenerateData.Enabled = true;
             buttonGenerateBobot.Enabled = true;
             buttonNetwork.Enabled = false;
+            buttonPause.Text = "pause";
+            buttonFast.Text = "fast";
 
             textBoxError.Clear();
             textBoxIterasi.Clear();
