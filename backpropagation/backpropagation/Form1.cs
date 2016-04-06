@@ -31,7 +31,7 @@ namespace backpropagation
         Graphics flagGraphics;
         List<Brush> warna;
 
-        double mse;
+        double rms;
         int counter;
         bool isStop;
         double plusMinus;
@@ -69,6 +69,14 @@ namespace backpropagation
             warna.Add(Brushes.Yellow);
 
             colors = new List<Color>();
+            colors.Add(Color.Red);
+            colors.Add(Color.Green);
+            colors.Add(Color.Blue);
+            colors.Add(Color.Yellow);
+            colors.Add(Color.Black);
+            colors.Add(Color.Purple);
+            colors.Add(Color.Orange);
+            colors.Add(Color.Magenta);
             var rainbow = Enum.GetValues(typeof(KnownColor));
             foreach (KnownColor knowColor in rainbow)
             {
@@ -172,8 +180,7 @@ namespace backpropagation
 
             UpdateButtonTrial();
 
-            Random rand = new Random();
-            var warnaGrafik = colors[rand.Next(colors.Count - 1)];
+            var warnaGrafik = colors[totalTrial-1];
 
             Series series = new Series();
             series.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
@@ -195,7 +202,7 @@ namespace backpropagation
 
         void RunBackpropagation()
         {
-            mse = 0;
+            rms = 0;
             for (int i = 0; i < 40; i++)
             {
                 /*feed forward*/
@@ -285,7 +292,7 @@ namespace backpropagation
                 //back propagation
                 for(int j=0;j<layerOutput.Count;j++)
                 {
-                    mse += Math.Pow(outputYangDiinginkan[j] - layerOutput[j].outputNeuron, 2);
+                    rms += Math.Pow(outputYangDiinginkan[j] - layerOutput[j].outputNeuron, 2);
                     layerOutput[j].delta = (outputYangDiinginkan[j] - layerOutput[j].outputNeuron) * layerOutput[j].derivativeBinarySigmoid;
                 }
 
@@ -340,10 +347,11 @@ namespace backpropagation
                 }
             }
 
-            mse /= 80;
-            textBoxError.Text = mse.ToString();
-            chart1.Series[index].Points.AddY(mse);
-            chart2.Series[index].Points.AddY(mse);
+            rms /= 80;
+            rms = Math.Sqrt(rms);
+            textBoxError.Text = rms.ToString();
+            chart1.Series[index].Points.AddY(rms);
+            chart2.Series[index].Points.AddY(rms);
 
         }
 
@@ -574,7 +582,7 @@ namespace backpropagation
         {
             RunBackpropagation();
             textBoxIterasi.Text = (++counter).ToString();
-            if(double.Parse(textBoxLimitError.Text) >= mse)
+            if(double.Parse(textBoxLimitError.Text) >= rms)
             {
                 timer1.Enabled = false;
             }
