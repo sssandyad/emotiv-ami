@@ -655,7 +655,8 @@ namespace backpropagation
             if(double.Parse(textBoxLimitError.Text) >= err)
             {
                 StopIteration();
-                
+                form2.Hide();
+                MessageBox.Show("Iterasi berhenti di " + counter.ToString());
             }
         }
 

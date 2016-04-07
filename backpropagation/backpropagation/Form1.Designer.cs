@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.tb_x1 = new System.Windows.Forms.TextBox();
             this.tb_y1 = new System.Windows.Forms.TextBox();
             this.tb_y2 = new System.Windows.Forms.TextBox();
@@ -228,7 +228,7 @@
             this.tb_hiddenLayer2.Name = "tb_hiddenLayer2";
             this.tb_hiddenLayer2.Size = new System.Drawing.Size(20, 20);
             this.tb_hiddenLayer2.TabIndex = 16;
-            this.tb_hiddenLayer2.Text = "15";
+            this.tb_hiddenLayer2.Text = "4";
             // 
             // tb_hiddenLayer1
             // 
@@ -236,7 +236,7 @@
             this.tb_hiddenLayer1.Name = "tb_hiddenLayer1";
             this.tb_hiddenLayer1.Size = new System.Drawing.Size(20, 20);
             this.tb_hiddenLayer1.TabIndex = 17;
-            this.tb_hiddenLayer1.Text = "20";
+            this.tb_hiddenLayer1.Text = "4";
             // 
             // buttonPlay
             // 
@@ -464,7 +464,7 @@
             this.textBoxOffset.Name = "textBoxOffset";
             this.textBoxOffset.Size = new System.Drawing.Size(35, 20);
             this.textBoxOffset.TabIndex = 43;
-            this.textBoxOffset.Text = "0.5";
+            this.textBoxOffset.Text = "0.2";
             // 
             // label19
             // 
@@ -587,10 +587,10 @@
             // 
             // chart1
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
+            chartArea5.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea5);
+            legend5.Name = "Legend1";
+            this.chart1.Legends.Add(legend5);
             this.chart1.Location = new System.Drawing.Point(676, 288);
             this.chart1.Name = "chart1";
             this.chart1.Size = new System.Drawing.Size(346, 208);
@@ -671,10 +671,10 @@
             // 
             // chart2
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chart2.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chart2.Legends.Add(legend2);
+            chartArea6.Name = "ChartArea1";
+            this.chart2.ChartAreas.Add(chartArea6);
+            legend6.Name = "Legend1";
+            this.chart2.Legends.Add(legend6);
             this.chart2.Location = new System.Drawing.Point(182, 288);
             this.chart2.Name = "chart2";
             this.chart2.Size = new System.Drawing.Size(469, 211);
