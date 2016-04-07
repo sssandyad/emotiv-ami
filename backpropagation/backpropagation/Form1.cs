@@ -652,7 +652,7 @@ namespace backpropagation
 
             if(checkBox1.Checked)
                 form2.UpdateTable(dataTable);
-            if(double.Parse(textBoxLimitError.Text) >= err)
+            if(batas_error >= err)
             {
                 StopIteration();
                 form2.Hide();
