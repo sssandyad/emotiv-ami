@@ -421,7 +421,7 @@ namespace backpropagation
             buttonFirstVariableDown.Enabled = false;
             buttonFirstVariableUp.Enabled = false;
             buttonSecondVariableDown.Enabled = false;
-            buttonSecondVariableDown.Enabled = false;
+            buttonSecondVariableUp.Enabled = false;
 
             buttonPlay.Enabled = false;
             checkBox1.Enabled = false;
@@ -659,10 +659,10 @@ namespace backpropagation
 
         void StopIteration()
         {
-            buttonFirstVariableDown.Enabled = false;
-            buttonFirstVariableUp.Enabled = false;
-            buttonSecondVariableDown.Enabled = false;
-            buttonSecondVariableDown.Enabled = false;
+            buttonFirstVariableDown.Enabled = true;
+            buttonFirstVariableUp.Enabled = true;
+            buttonSecondVariableDown.Enabled = true;
+            buttonSecondVariableUp.Enabled = true;
             buttonStop.Enabled = false;
             checkBox1.Enabled = true;
             buttonPlay.Enabled = true;
