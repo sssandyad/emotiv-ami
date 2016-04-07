@@ -417,6 +417,8 @@ namespace backpropagation
         private void button1_Click(object sender, EventArgs e)
         {
             form2.ResetChart();
+            textBoxError.Clear();
+            textBoxIterasi.Clear();
 
             buttonFirstVariableDown.Enabled = false;
             buttonFirstVariableUp.Enabled = false;
@@ -671,9 +673,6 @@ namespace backpropagation
             buttonGenerateData.Enabled = true;
             buttonPause.Text = "pause";
             buttonFast.Text = "slow";
-
-            textBoxError.Clear();
-            textBoxIterasi.Clear();
 
             timer1.Enabled = false;
             isStop = true;
