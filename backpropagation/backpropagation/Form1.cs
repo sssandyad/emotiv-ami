@@ -13,16 +13,20 @@ namespace backpropagation
 {
     public partial class form1 : Form
     {
+
         List<Neuron> layerInput;
         List<Neuron> layerPertama;
         List<Neuron> layerKedua;
         List<Neuron> layerOutput;
         List<String> status;
 
+        Form2 form2;
+
         int index;
         int totalTrial;
 
         List<Color> colors;
+        List<double[]> dataTable;
 
         Bitmap jaring;
         Graphics gambarJaring;
@@ -31,15 +35,10 @@ namespace backpropagation
         Graphics flagGraphics;
         List<Brush> warna;
 
-        double rms;
         int counter;
         bool isStop;
-        double plusMinus;
+        double offset;
         double alpha;
-
-        double[] dataX;
-        double[] dataY;
-        double[] kelas;
 
         double learningRate;
 
@@ -49,11 +48,286 @@ namespace backpropagation
         int jumlahVariableHiddenLayer1;
         int jumlahVariableHiddenLayer2;
 
-        double bobot1;
-        double bobot2;
-        double bobot3;
+        int m, p, tau;
+        double miu,batas_error, z_in, err;
+        double[,] dataClass, wa, wb, wc, Yd;
+        double[] tha, thb, thc, oa, ob, goa, gob, y, gy, deltaA, deltaB, deltaC;
 
-        double[] outputYangDiinginkan;
+        void BuildInput()
+        {
+            m = int.Parse(tb_hiddenLayer1.Text);
+            p = int.Parse(tb_hiddenLayer2.Text);
+            learningRate = double.Parse(textBoxRate.Text);
+
+            alpha = double.Parse(textBoxAlpha.Text);
+            miu = double.Parse(textBoxRate.Text);
+            tau = 10000000;
+            batas_error = double.Parse(textBoxLimitError.Text);
+
+            wa = new double[m, 2];
+            wb = new double[p, m];
+            wc = new double[2, p];
+
+            Random rand = new Random();
+
+            for(int i=0;i< m;i++)
+            {
+                for(int j=0;j<2;j++)
+                {
+                    wa[i, j] = rand.NextDouble() * 0.5;
+                }
+            }
+
+            for(int i=0;i< p;i++)
+            {
+                for(int j=0;j< m;j++)
+                {
+                    wb[i, j] = rand.NextDouble() * 0.5;
+                }
+            }
+
+            for(int i=0;i<2;i++)
+            {
+                for (int j=0;j< p;j++)
+                {
+                    wc[i, j] = rand.NextDouble() * 0.5;
+                }
+            }
+
+            tha = new double[m];
+            thb = new double[p];
+            thc = new double[2];
+
+            for(int i=0;i< m;i++)
+            {
+                tha[i] = rand.NextDouble() * 0.5;
+            }
+
+            for (int i = 0; i < p; i++)
+            {
+                thb[i] = rand.NextDouble() * 0.5;
+            }
+
+            for (int i = 0; i < 2; i++)
+            {
+                thc[i] = rand.NextDouble() * 0.5;
+            }
+
+            nilaiAcuanX = new double[4];
+            nilaiAcuanY = new double[4];
+
+            nilaiAcuanX[0] = double.Parse(tb_x1.Text);
+            nilaiAcuanX[1] = double.Parse(tb_x2.Text);
+            nilaiAcuanX[2] = double.Parse(tb_x3.Text);
+            nilaiAcuanX[3] = double.Parse(tb_x4.Text);
+
+            nilaiAcuanY[0] = double.Parse(tb_y1.Text);
+            nilaiAcuanY[1] = double.Parse(tb_y2.Text);
+            nilaiAcuanY[2] = double.Parse(tb_y3.Text);
+            nilaiAcuanY[3] = double.Parse(tb_y4.Text);
+
+            offset = double.Parse(textBoxOffset.Text);
+
+            dataClass = new double[2, 40];
+            Yd = new double[2, 40];
+            for (int j=0;j<10;j++)
+            {
+                int plusOrMinus;
+
+                if (rand.Next(0, 1) == 0) plusOrMinus = 1;
+                else plusOrMinus = -1;
+                dataClass[0, j] = nilaiAcuanX[0] + rand.NextDouble() * offset * plusOrMinus;
+                Yd[0, j] = 0;
+                dataTable[j][0] = dataClass[0, j];
+                dataTable[j][2] = Yd[0, j];
+
+                if (rand.Next(0, 1) == 0) plusOrMinus = 1;
+                else plusOrMinus = -1;
+                dataClass[1, j] = nilaiAcuanY[0] + rand.NextDouble() * offset * plusOrMinus;
+                Yd[1, j] = 0;
+                dataTable[j][1] = dataClass[1, j];
+                dataTable[j][3] = Yd[1, j];
+            }
+
+            for (int j = 10; j < 20; j++)
+            {
+                int plusOrMinus;
+
+                if (rand.Next(0, 1) == 0) plusOrMinus = 1;
+                else plusOrMinus = -1;
+                dataClass[0, j] = nilaiAcuanX[1] + rand.NextDouble() * offset * plusOrMinus;
+                Yd[0, j] = 0;
+                dataTable[j][0] = dataClass[0, j];
+                dataTable[j][2] = Yd[0, j];
+
+                if (rand.Next(0, 1) == 0) plusOrMinus = 1;
+                else plusOrMinus = -1;
+                dataClass[1, j] = nilaiAcuanY[1] + rand.NextDouble() * offset * plusOrMinus;
+                Yd[1, j] = 1;
+                dataTable[j][1] = dataClass[1, j];
+                dataTable[j][3] = Yd[1, j];
+            }
+
+            for (int j = 20; j < 30; j++)
+            {
+                int plusOrMinus;
+
+                if (rand.Next(0, 1) == 0) plusOrMinus = 1;
+                else plusOrMinus = -1;
+                dataClass[0, j] = nilaiAcuanX[2] + rand.NextDouble() * offset * plusOrMinus;
+                Yd[0, j] = 1;
+                dataTable[j][0] = dataClass[0, j];
+                dataTable[j][2] = Yd[0, j];
+
+
+                if (rand.Next(0, 1) == 0) plusOrMinus = 1;
+                else plusOrMinus = -1;
+                dataClass[1, j] = nilaiAcuanY[2] + rand.NextDouble() * offset * plusOrMinus;
+                Yd[1, j] = 0;
+                dataTable[j][1] = dataClass[1, j];
+                dataTable[j][3] = Yd[1, j];
+            }
+
+            for (int j = 30; j < 40; j++)
+            {
+                int plusOrMinus;
+
+                if (rand.Next(0, 1) == 0) plusOrMinus = 1;
+                else plusOrMinus = -1;
+                dataClass[0, j] = nilaiAcuanX[3] + rand.NextDouble() * offset * plusOrMinus;
+                Yd[0, j] = 1;
+                dataTable[j][0] = dataClass[0, j];
+                dataTable[j][2] = Yd[0, j];
+
+                if (rand.Next(0, 1) == 0) plusOrMinus = 1;
+                else plusOrMinus = -1;
+                dataClass[1, j] = nilaiAcuanY[3] + rand.NextDouble() * offset * plusOrMinus;
+                Yd[1, j] = 1;
+                dataTable[j][1] = dataClass[1, j];
+                dataTable[j][3] = Yd[1, j];
+            }
+        }
+
+        void BackPropagation()
+        {
+            err = 0;
+            miu = learningRate / (1 + (index / tau));
+            oa = new double[m];
+            goa = new double[m];
+            ob = new double[p];
+            gob = new double[p];
+            y = new double[2];
+            gy = new double[2];
+
+            for (int k = 0; k < 40; k++)
+            {
+                for (int j = 0; j < m; j++)
+                {
+                    z_in = 0;
+                    for (int i = 0; i < 2; i++)
+                    {
+                        z_in += wa[j, i] * dataClass[i, k];
+                    }
+                    z_in -= tha[j];
+                    oa[j] = 1 / (1 + Math.Exp(-alpha * z_in));
+                    goa[j] = alpha * oa[j] * (1 - oa[j]);
+                }
+
+                for (int j = 0; j < p; j++)
+                {
+                    z_in = 0;
+                    for (int i = 0; i < m; i++)
+                    {
+                        z_in += wb[j, i] * oa[i];
+                    }
+                    z_in -= thb[j];
+                    ob[j] = 1 / (1 + Math.Exp(-alpha * z_in));
+                    gob[j] = alpha * ob[j] * (1 - ob[j]);
+                }
+
+                for (int j = 0; j < 2; j++)
+                {
+                    z_in = 0;
+                    for (int i = 0; i < p; i++)
+                    {
+                        z_in += wc[j, i] * ob[i];
+                    }
+                    z_in -= thc[j];
+                    y[j] = 1 / (1 + Math.Exp(-alpha * z_in));
+                    gy[j] = alpha * y[j] * (1 - y[j]);
+                }
+
+                err += 0.5 * Math.Pow((Yd[0, k] - y[0]), 2) * Math.Pow((Yd[1, k] - y[1]), 2);
+                dataTable[k][4] = y[0];
+                dataTable[k][5] = y[1];
+
+                deltaA = new double[40];
+                deltaB = new double[40];
+                deltaC = new double[40];
+                for (int i = 0; i < 2; i++)
+                {
+                    deltaC[i] = (Yd[i, k] - y[i]) * gy[i];
+                }
+
+                for(int i=0;i<2;i++)
+                {
+                    for(int j=0;j< p;j++)
+                    {
+                        deltaB[i] = deltaC[j] * wc[i, j] * gob[i];
+                    }
+                }
+
+                for (int i = 0; i < p; i++)
+                {
+                    for (int j = 0; j < m; j++)
+                    {
+                        deltaA[i] = deltaB[j] * wb[i, j] * goa[i];
+                    }
+                }
+
+                //update
+                for(int i=0;i<2;i++)
+                {
+                    for(int j=0;j< p;j++)
+                    {
+                        wc[i, j] += miu * deltaC[i] * ob[j];
+                    }
+                    thc[i] -= miu * deltaC[i];
+                }
+
+                for(int i=0;i< p;i++)
+                {
+                    for(int j=0;j< m;j++)
+                    {
+                        wb[i, j] += miu * deltaB[i] * oa[j];
+                    }
+                    thb[i] -= miu * deltaB[i];
+                }
+                for (int i = 0; i < m; i++)
+                {
+                    for (int j = 0; j < 2; j++)
+                    {
+                        wa[i, j] += miu * deltaA[i] * dataClass[j,k];
+                    }
+                    tha[i] -= miu * deltaA[i];
+                }
+            }
+
+            //err /= 40;
+            textBoxError.Text = err.ToString();
+            if (checkBox1.Checked)
+                form2.UpdateError(err);
+            //chart1.Series[index].Points.AddY(err);
+            chart2.Series[index].Points.AddY(err);
+
+            if(checkBox1.Checked)
+                form2.AddValueChart(err);
+        }
+
+        public void StopFromOther()
+        {
+            buttonStop.PerformClick();
+        }
 
         public form1()
         {
@@ -90,10 +364,6 @@ namespace backpropagation
             buttonPause.Enabled = false;
             buttonStop.Enabled = false;
             buttonFast.Enabled = false;
-            buttonNetwork.Enabled = false;
-
-            buttonPrev.Enabled = false;
-            buttonNext.Enabled = false;
 
             timer1.Enabled = false;
             isStop = true;
@@ -120,7 +390,23 @@ namespace backpropagation
             gambarJaring.DrawLine(blackPen, 500, 0, 500, 600);
             gambarJaring.DrawLine(blackPen, 750, 0, 750, 600);
 
-            GenerateBobot();
+            form2 = new Form2(this);
+
+            Series series = new Series();
+            series.ChartType = SeriesChartType.Line;
+            series.MarkerStyle = MarkerStyle.Circle;
+            series.MarkerSize = 10;
+            series.Color = Color.Blue;
+            series.IsVisibleInLegend = false;
+            chart1.Series.Add(series);
+            chart1.ChartAreas[0].AxisX.MajorGrid.LineWidth = 0;
+            chart1.ChartAreas[0].AxisY.MajorGrid.LineWidth = 0;
+
+            dataTable = new List<double[]>();
+            for(int i=0;i<40;i++)
+            {
+                dataTable.Add(new double[6]);
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -128,49 +414,28 @@ namespace backpropagation
 
         }
 
-        void UpdateButtonTrial()
-        {
-            if (index == 0)
-            {
-                buttonPrev.Enabled = false;
-            }
-            else
-            {
-                buttonPrev.Enabled = true;
-            }
-
-            if(totalTrial-1==index)
-            {
-                buttonNext.Enabled = false;                
-            }
-            else
-            {
-                buttonNext.Enabled = true;
-            }
-
-            labelTrial.Text = status[index];
-        }
-
         private void button1_Click(object sender, EventArgs e)
-        {  
+        {
+            form2.ResetChart();
+
+            buttonFirstVariableDown.Enabled = false;
+            buttonFirstVariableUp.Enabled = false;
+            buttonSecondVariableDown.Enabled = false;
+            buttonSecondVariableDown.Enabled = false;
+
             buttonPlay.Enabled = false;
+            checkBox1.Enabled = false;
             buttonFast.Enabled = true;
             buttonPause.Enabled = true;
             buttonStop.Enabled = true;
-            buttonGenerateBobot.Enabled = false;
             buttonGenerateData.Enabled = false;
-            buttonNetwork.Enabled = true;
-
-            if(totalTrial!=0)
-            {
-                chart1.Series[index].Enabled = false;
-            }
 
             totalTrial++;
             index = totalTrial - 1;
 
             if (isStop)
             {
+                BuildInput();
                 BuildData();
 
                 ConstructNetwork();
@@ -178,15 +443,7 @@ namespace backpropagation
                 isStop = false;
             }
 
-            UpdateButtonTrial();
-
             var warnaGrafik = colors[totalTrial-1];
-
-            Series series = new Series();
-            series.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series.Color = warnaGrafik;
-            series.IsVisibleInLegend = false;
-            chart1.Series.Add(series);
 
             Series global = new Series();
             global.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
@@ -196,171 +453,11 @@ namespace backpropagation
 
             pictureBox4.Invalidate();
 
-            timer1.Interval = 500;
+            if(checkBox1.Checked)
+                form2.Show();
+
+            timer1.Interval = 1;
             timer1.Enabled = true;
-        }
-
-        void RunBackpropagation()
-        {
-            rms = 0;
-            for (int i = 0; i < 40; i++)
-            {
-                /*feed forward*/
-
-                //layer layerInput
-                //masukkan data random ke neuron layerInput (layer layerInput)
-                layerInput[0].outputNeuron = dataX[i];
-                layerInput[1].outputNeuron = dataY[i];  
-
-                //layer 1
-                for (int j = 0; j < layerPertama.Count; j++)
-                {
-                    //potensialAktivasi = (total semua bobot * layerInput yg masuk ke neuron tersebut) - threshold(bias error)
-                    layerPertama[j].potensialAktivasi = 0;
-                    for (int k = 0; k < layerPertama[j].backwardPointer.Count; k++)
-                    {
-                        layerPertama[j].potensialAktivasi += layerPertama[j].backwardPointer[k].weight * layerPertama[j].backwardPointer[k].back.outputNeuron;
-                    }
-                    layerPertama[j].potensialAktivasi -= layerPertama[j].threshold;
-
-                    //output neuron dihitung dengan fungsi aktivasi Binary Sigmoid
-                    layerPertama[j].outputNeuron = 1 / (1 + Math.Exp(alpha * -layerPertama[j].potensialAktivasi));
-
-                    //menghitung nilai derivative dari fungsi aktivasi Binary Sigmoid:
-                    layerPertama[j].derivativeBinarySigmoid = alpha * layerPertama[j].outputNeuron * (1 - layerPertama[j].outputNeuron);
-                }
-
-                //layer2
-                for (int j = 0; j < layerKedua.Count; j++)
-                {
-                    //potensialAktivasi = (total semua bobot * layerInput yg masuk ke neuron tersebut) - threshold(bias error)
-                    layerKedua[j].potensialAktivasi = 0;
-                    for (int k = 0; k < layerKedua[j].backwardPointer.Count; k++)
-                    {
-                        layerKedua[j].potensialAktivasi += layerKedua[j].backwardPointer[k].weight * layerKedua[j].backwardPointer[k].back.outputNeuron;
-                    }
-                    layerKedua[j].potensialAktivasi -= layerKedua[j].threshold;
-
-                    //output neuron dihitung dengan fungsi aktivasi Binary Sigmoid
-                    layerKedua[j].outputNeuron = 1 / (1 + Math.Exp(alpha * -layerKedua[j].potensialAktivasi));
-
-                    //menghitung nilai derivative dari fungsi aktivasi Binary Sigmoid:
-                    layerKedua[j].derivativeBinarySigmoid = alpha * layerKedua[j].outputNeuron * (1 - layerKedua[j].outputNeuron);
-                }
-
-                //layerOutput
-                for (int j = 0; j < layerOutput.Count; j++)
-                {
-                    //potensialAktivasi = (total semua bobot * layerInput yg masuk ke neuron tersebut) - threshold(bias error)
-                    layerOutput[j].potensialAktivasi = 0;
-                    for (int k = 0; k < layerOutput[j].backwardPointer.Count; k++)
-                    {
-                        layerOutput[j].potensialAktivasi += layerOutput[j].backwardPointer[k].weight * layerOutput[j].backwardPointer[k].back.outputNeuron;
-                    }
-                    layerOutput[j].potensialAktivasi -= layerOutput[j].threshold;
-
-                    //output neuron dihitung dengan fungsi aktivasi Binary Sigmoid
-                    layerOutput[j].outputNeuron = 1 / (1 + Math.Exp(alpha * -layerOutput[j].potensialAktivasi));
-
-                    //menghitung nilai derivative dari fungsi aktivasi Binary Sigmoid:
-                    layerOutput[j].derivativeBinarySigmoid = alpha * layerOutput[j].outputNeuron * (1 - layerOutput[j].outputNeuron);
-                }
-
-
-                //mendapatkan layerOutput yang diinginkan (Yd)
-                if (kelas[i] == 1)
-                {
-                    outputYangDiinginkan[0] = 0;
-                    outputYangDiinginkan[1] = 0;
-                }
-                else if (kelas[i] == 2)
-                {
-                    outputYangDiinginkan[0] = 0;
-                    outputYangDiinginkan[1] = 1;
-                }
-                else if (kelas[i] == 3)
-                {
-                    outputYangDiinginkan[0] = 1;
-                    outputYangDiinginkan[1] = 0;
-                }
-                else
-                {
-                    outputYangDiinginkan[0] = 1;
-                    outputYangDiinginkan[1] = 1;
-                }
-
-                //back propagation
-                for(int j=0;j<layerOutput.Count;j++)
-                {
-                    rms += Math.Pow(outputYangDiinginkan[j] - layerOutput[j].outputNeuron, 2);
-                    layerOutput[j].delta = (outputYangDiinginkan[j] - layerOutput[j].outputNeuron) * layerOutput[j].derivativeBinarySigmoid;
-                }
-
-                for (int j=0;j<layerKedua.Count;j++)
-                {
-                    layerKedua[j].delta = 0;
-                    for (int k=0;k<layerKedua[j].forwardPointer.Count;k++)
-                    {
-                        layerKedua[j].delta += layerKedua[j].forwardPointer[k].front.delta * layerKedua[j].forwardPointer[k].weight;
-                    }
-                    layerKedua[j].delta *= layerKedua[j].derivativeBinarySigmoid;
-                }
-
-                for (int j = 0; j < layerPertama.Count; j++)
-                {
-                    layerPertama[j].delta = 0;
-                    for (int k = 0; k < layerPertama[j].forwardPointer.Count; k++)
-                    {
-                        layerPertama[j].delta = layerPertama[j].forwardPointer[k].front.delta * layerPertama[j].forwardPointer[k].weight;
-                    }
-                    layerPertama[j].delta *= layerPertama[j].derivativeBinarySigmoid;
-                }
-
-
-
-                //update weight
-                for (int j = 0; j < layerOutput.Count; j++)
-                {
-                    for (int k = 0; k < layerOutput[j].backwardPointer.Count; k++)
-                    {
-                        layerOutput[j].backwardPointer[k].weight += learningRate * layerOutput[j].delta * layerOutput[j].backwardPointer[k].back.outputNeuron;
-                        layerOutput[j].threshold -= learningRate * layerOutput[j].delta;
-                    }
-                }
-
-                for (int j = 0; j < layerKedua.Count; j++)
-                {
-                    for (int k = 0; k < layerKedua[j].backwardPointer.Count; k++)
-                    {
-                        layerKedua[j].backwardPointer[k].weight += learningRate * layerKedua[j].delta * layerKedua[j].backwardPointer[k].back.outputNeuron;
-                        layerKedua[j].threshold -= learningRate * layerKedua[j].delta;
-                    }
-                }
-
-                for (int j = 0; j < layerPertama.Count; j++)
-                {
-                    for (int k = 0; k < layerPertama[j].backwardPointer.Count; k++)
-                    {
-                        layerPertama[j].backwardPointer[k].weight += learningRate * layerPertama[j].delta * layerPertama[j].backwardPointer[k].back.outputNeuron;
-                        layerPertama[j].threshold -= learningRate * layerPertama[j].delta;
-                    }
-                }
-            }
-
-            rms /= 80;
-            rms = Math.Sqrt(rms);
-            textBoxError.Text = rms.ToString();
-            chart1.Series[index].Points.AddY(rms);
-            chart2.Series[index].Points.AddY(rms);
-
-        }
-
-        void GenerateBobot()
-        {
-            Random rand = new Random();
-            tb_wa.Text = (rand.Next(1, 10) * 0.1).ToString();
-            tb_wb.Text = (rand.Next(1, 10) * 0.1).ToString();
-            tb_wc.Text = (rand.Next(1, 10) * 0.1).ToString();
         }
 
         void BuildData()
@@ -375,35 +472,11 @@ namespace backpropagation
 
             pictureBox4.SizeMode = PictureBoxSizeMode.AutoSize;
 
-            outputYangDiinginkan = new double[2];
-
-            plusMinus = double.Parse(textBoxRandom.Text);
-            double maxRandom = plusMinus * 100 - 1;
+            offset = double.Parse(textBoxOffset.Text);
 
             counter = 0;
 
             learningRate = double.Parse(textBoxRate.Text);
-
-            dataX = new double[40];
-            dataY = new double[40];
-            kelas = new double[40];
-
-            nilaiAcuanX = new double[4];
-            nilaiAcuanY = new double[4];
-
-            bobot1 = double.Parse(tb_wa.Text);
-            bobot2 = double.Parse(tb_wb.Text);
-            bobot3 = double.Parse(tb_wc.Text);
-
-            nilaiAcuanX[0] = double.Parse(tb_x1.Text);
-            nilaiAcuanX[1] = double.Parse(tb_x2.Text);
-            nilaiAcuanX[2] = double.Parse(tb_x3.Text);
-            nilaiAcuanX[3] = double.Parse(tb_x4.Text);
-
-            nilaiAcuanY[0] = double.Parse(tb_y1.Text);
-            nilaiAcuanY[1] = double.Parse(tb_y2.Text);
-            nilaiAcuanY[2] = double.Parse(tb_y3.Text);
-            nilaiAcuanY[3] = double.Parse(tb_y4.Text);
 
             jumlahVariableHiddenLayer1 = int.Parse(tb_hiddenLayer1.Text);
             jumlahVariableHiddenLayer2 = int.Parse(tb_hiddenLayer2.Text);
@@ -413,22 +486,9 @@ namespace backpropagation
 
             alpha = double.Parse(textBoxAlpha.Text);
 
-            Random rand = new Random();
-            double nilaiRandom = 0;
             for (int i = 0; i < 40; i++)
             {
-                nilaiRandom = rand.Next(0, (int)maxRandom) * 0.01;
-                dataX[i] = nilaiAcuanX[i / 10] - plusMinus / 2 + nilaiRandom;
-
-                nilaiRandom = rand.Next(0, (int)maxRandom) * 0.01;
-                dataY[i] = nilaiAcuanY[i / 10] - plusMinus / 2 + nilaiRandom;
-
-                kelas[i] = i / 10 + 1;
-
-                flagGraphics.FillPie(warna[i/10], (int)(dataX[i]*100/10-2+100), (int)(-1*dataY[i]*100/10-2+100), 5, 5, 0, 360);
-                //MessageBox.Show((dataX[i] * 100 / 10 - 2 + 100).ToString() + " " + (dataY[i] * 100 / 10 - 2 + 100).ToString());
-
-                Console.WriteLine("(" + dataX[i] + "," + dataY[i] + ") = " + kelas[i]);
+                flagGraphics.FillPie(warna[i/10], (int)(dataClass[0,i]*100/10-2+100), (int)(-1*dataClass[1,i]*100/10-2+100), 5, 5, 0, 360);
             }
         }
 
@@ -464,14 +524,13 @@ namespace backpropagation
             layerOutput.Add(new Neuron(875,200));
             layerOutput.Add(new Neuron(875,400));
 
-            /*merangkai neuron dan memberinya bobot. bobot berdasarkan inputan Wa, Wb, Wc*/
 
-            //memberi bobot1 (Wa) untuk edge yang menghubungkan dari layerInput layer menuju hidden layer pertama
+            //menghubungkan dari layerInput layer menuju hidden layer pertama
             for (int i = 0; i < layerInput.Count; i++)
             {
                 for (int j = 0; j < layerPertama.Count; j++)
                 {
-                    Edge p = new Edge(bobot1);
+                    Edge p = new Edge();
                     p.back = layerInput[i];
                     p.front = layerPertama[j];
                     layerInput[i].forwardPointer.Add(p);
@@ -479,12 +538,12 @@ namespace backpropagation
                 }
             }
 
-            //memberi bobot2 (Wb) untuk edge yang menghubungkan dari hidden layer pertama menuju hidden layer kedua
+            //menghubungkan dari hidden layer pertama menuju hidden layer kedua
             for (int i = 0; i < layerPertama.Count; i++)
             {
                 for (int j = 0; j < layerKedua.Count; j++)
                 {
-                    Edge p = new Edge(bobot2);
+                    Edge p = new Edge();
                     p.back = layerPertama[i];
                     p.front = layerKedua[j];
                     layerPertama[i].forwardPointer.Add(p);
@@ -492,12 +551,12 @@ namespace backpropagation
                 }
             }
 
-            //memberi bobot3 (Wc) untuk edge yang menghubungkan dari hidden layer kedua menuju layer layerOutput
+            //menghubungkan dari hidden layer kedua menuju layer layerOutput
             for (int i = 0; i < layerKedua.Count; i++)
             {
                 for (int j = 0; j < layerOutput.Count; j++)
                 {
-                    Edge p = new Edge(bobot2);
+                    Edge p = new Edge();
                     p.back = layerKedua[i];
                     p.front = layerOutput[j];
                     layerKedua[i].forwardPointer.Add(p);
@@ -506,6 +565,9 @@ namespace backpropagation
             }
 
             DrawNeuralNetwork();
+
+            if(checkBox1.Checked)
+                form2.SetGambar(jaring);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -517,7 +579,7 @@ namespace backpropagation
             //RunBackpropagation();
             if (timer1.Interval == 500)
             {
-                timer1.Interval = 10;
+                timer1.Interval = 1;
                 buttonFast.Text = "slow";
             }
             else
@@ -580,31 +642,45 @@ namespace backpropagation
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            RunBackpropagation();
+            BackPropagation();
             textBoxIterasi.Text = (++counter).ToString();
-            if(double.Parse(textBoxLimitError.Text) >= rms)
+            if (checkBox1.Checked)
+                form2.UpdateIterasi(counter);
+
+
+            if(checkBox1.Checked)
+                form2.UpdateTable(dataTable);
+            if(double.Parse(textBoxLimitError.Text) >= err)
             {
-                timer1.Enabled = false;
+                StopIteration();
+                
             }
         }
 
         void StopIteration()
         {
+            buttonFirstVariableDown.Enabled = false;
+            buttonFirstVariableUp.Enabled = false;
+            buttonSecondVariableDown.Enabled = false;
+            buttonSecondVariableDown.Enabled = false;
             buttonStop.Enabled = false;
+            checkBox1.Enabled = true;
             buttonPlay.Enabled = true;
             buttonPause.Enabled = false;
             buttonFast.Enabled = false;
             buttonGenerateData.Enabled = true;
-            buttonGenerateBobot.Enabled = true;
-            buttonNetwork.Enabled = false;
             buttonPause.Text = "pause";
-            buttonFast.Text = "fast";
+            buttonFast.Text = "slow";
 
             textBoxError.Clear();
             textBoxIterasi.Clear();
 
             timer1.Enabled = false;
             isStop = true;
+
+            chart1.Series[0].Points.AddXY(counter, err);
+            chart1.Series[0].Points[chart1.Series[0].Points.Count - 1].Color = colors[totalTrial - 1];
+            chart1.Series[0].Points[chart1.Series[0].Points.Count-1].Label = totalTrial.ToString() +"#("+jumlahVariableHiddenLayer1.ToString()+","+jumlahVariableHiddenLayer2.ToString()+")";
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -635,7 +711,7 @@ namespace backpropagation
         {
             isStop = false;
 
-            buttonNetwork.Enabled = true;
+            BuildInput();
 
             BuildData();
 
@@ -644,26 +720,17 @@ namespace backpropagation
             pictureBox4.Invalidate();
         }
 
-        private void buttonGenerateBobot_Click(object sender, EventArgs e)
-        {
-            GenerateBobot();
-        }
-
         private void button1_Click_1(object sender, EventArgs e)
         {
-            Form hiddenLayer2 = new Form2(jaring);
-            hiddenLayer2.Show();
         }
 
         private void button2_Click_1(object sender, EventArgs e)
         {
-            Form hiddenLayer2 = new Form2(jaring);
-            hiddenLayer2.Show();
         }
 
         private void buttonFirstVariableDown_Click(object sender, EventArgs e)
         {
-            StopIteration();
+
 
             int value = int.Parse(tb_hiddenLayer1.Text);
             tb_hiddenLayer1.Text = ((value < 2) ? 0 : --value).ToString();
@@ -671,7 +738,7 @@ namespace backpropagation
 
         private void buttonFirstVariableUp_Click(object sender, EventArgs e)
         {
-            StopIteration();
+
 
             int value = int.Parse(tb_hiddenLayer1.Text);
             tb_hiddenLayer1.Text = (++value).ToString();
@@ -679,7 +746,7 @@ namespace backpropagation
 
         private void buttonSecondVariableDown_Click(object sender, EventArgs e)
         {
-            StopIteration();
+
 
             int value = int.Parse(tb_hiddenLayer2.Text);
             tb_hiddenLayer2.Text = ((value < 2) ? 0 : --value).ToString();
@@ -687,7 +754,7 @@ namespace backpropagation
 
         private void buttonSecondVariableUp_Click(object sender, EventArgs e)
         {
-            StopIteration();
+
 
             int value = int.Parse(tb_hiddenLayer2.Text);
             tb_hiddenLayer2.Text = (++value).ToString();
@@ -698,7 +765,6 @@ namespace backpropagation
             chart1.Series[index].Enabled = false;
             if (index > 0)
                 --index;
-            UpdateButtonTrial();
             chart1.Series[index].Enabled = true;
         }
 
@@ -712,7 +778,7 @@ namespace backpropagation
             chart1.Series[index].Enabled = false;
             if (index < totalTrial-1)
                 ++index;
-            UpdateButtonTrial();
+
             chart1.Series[index].Enabled = true;
         }
     }

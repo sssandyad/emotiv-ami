@@ -8,13 +8,7 @@ namespace backpropagation
 {
     class Edge
     {
-        public double weight;
         public Neuron front;
         public Neuron back;
-
-        public Edge(double w)
-        {
-            weight = w;
-        }
     }
 }
