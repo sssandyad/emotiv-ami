@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.tb_x1 = new System.Windows.Forms.TextBox();
             this.tb_y1 = new System.Windows.Forms.TextBox();
             this.tb_y2 = new System.Windows.Forms.TextBox();
@@ -250,7 +250,7 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.LightSalmon;
+            this.panel1.BackColor = System.Drawing.Color.DeepSkyBlue;
             this.panel1.Controls.Add(this.label5);
             this.panel1.Location = new System.Drawing.Point(524, 70);
             this.panel1.Name = "panel1";
@@ -268,7 +268,7 @@
             // 
             // panel2
             // 
-            this.panel2.BackColor = System.Drawing.Color.LightSalmon;
+            this.panel2.BackColor = System.Drawing.Color.DeepSkyBlue;
             this.panel2.Controls.Add(this.label6);
             this.panel2.Location = new System.Drawing.Point(646, 70);
             this.panel2.Name = "panel2";
@@ -286,7 +286,7 @@
             // 
             // panel3
             // 
-            this.panel3.BackColor = System.Drawing.Color.LightSalmon;
+            this.panel3.BackColor = System.Drawing.Color.DeepSkyBlue;
             this.panel3.Controls.Add(this.textBoxOutputY);
             this.panel3.Controls.Add(this.label10);
             this.panel3.Controls.Add(this.textBoxOutputX);
@@ -322,7 +322,7 @@
             // 
             // panel4
             // 
-            this.panel4.BackColor = System.Drawing.Color.LightSalmon;
+            this.panel4.BackColor = System.Drawing.Color.DeepSkyBlue;
             this.panel4.Controls.Add(this.textBoxInputY);
             this.panel4.Controls.Add(this.textBoxInputX);
             this.panel4.Controls.Add(this.label11);
@@ -587,10 +587,10 @@
             // 
             // chart1
             // 
-            chartArea5.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea5);
-            legend5.Name = "Legend1";
-            this.chart1.Legends.Add(legend5);
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
             this.chart1.Location = new System.Drawing.Point(676, 288);
             this.chart1.Name = "chart1";
             this.chart1.Size = new System.Drawing.Size(346, 208);
@@ -671,10 +671,10 @@
             // 
             // chart2
             // 
-            chartArea6.Name = "ChartArea1";
-            this.chart2.ChartAreas.Add(chartArea6);
-            legend6.Name = "Legend1";
-            this.chart2.Legends.Add(legend6);
+            chartArea2.Name = "ChartArea1";
+            this.chart2.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chart2.Legends.Add(legend2);
             this.chart2.Location = new System.Drawing.Point(182, 288);
             this.chart2.Name = "chart2";
             this.chart2.Size = new System.Drawing.Size(469, 211);
@@ -798,6 +798,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.RoyalBlue;
             this.ClientSize = new System.Drawing.Size(1061, 511);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.checkBox1);
