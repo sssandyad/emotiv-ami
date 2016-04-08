@@ -416,6 +416,7 @@ namespace backpropagation
 
         private void button1_Click(object sender, EventArgs e)
         {
+            
             form2.ResetChart();
             textBoxError.Clear();
             textBoxIterasi.Clear();
@@ -460,6 +461,8 @@ namespace backpropagation
 
             timer1.Interval = 1;
             timer1.Enabled = true;
+
+            //MessageBox.Show(batas_error.ToString());
         }
 
         void BuildData()
