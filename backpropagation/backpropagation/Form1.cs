@@ -652,10 +652,9 @@ namespace backpropagation
             if (checkBox1.Checked)
                 form2.UpdateIterasi(counter);
 
-
             if(checkBox1.Checked)
                 form2.UpdateTable(dataTable);
-            if(batas_error >= err)
+            if(batas_error >= err && counter%40==0)
             {
                 StopIteration();
                 form2.Hide();
