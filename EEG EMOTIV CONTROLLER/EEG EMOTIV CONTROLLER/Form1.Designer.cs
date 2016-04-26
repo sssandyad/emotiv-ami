@@ -89,6 +89,7 @@
             // 
             // timer
             // 
+            this.timer.Interval = 1000;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
             // Form1
@@ -101,6 +102,7 @@
             this.Controls.Add(this.chartEeg);
             this.Controls.Add(this.buttonOpen);
             this.Controls.Add(this.label1);
+            this.DoubleBuffered = true;
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);

@@ -8,3 +8,5 @@ C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\EEG EMOTIV CONTROLLER\EEG 
 C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\EEG EMOTIV CONTROLLER\EEG EMOTIV CONTROLLER\obj\Debug\EEG EMOTIV CONTROLLER.exe
 C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\EEG EMOTIV CONTROLLER\EEG EMOTIV CONTROLLER\obj\Debug\EEG EMOTIV CONTROLLER.pdb
 C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\EEG EMOTIV CONTROLLER\EEG EMOTIV CONTROLLER\obj\Debug\EEG_EMOTIV_CONTROLLER.Form1.resources
+C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\EEG EMOTIV CONTROLLER\EEG EMOTIV CONTROLLER\bin\Debug\AForge.dll
+C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\EEG EMOTIV CONTROLLER\EEG EMOTIV CONTROLLER\bin\Debug\AForge.xml
