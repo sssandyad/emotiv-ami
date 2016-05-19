@@ -10,3 +10,16 @@ C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\EEG EMOTIV CONTROLLER\EEG 
 C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\EEG EMOTIV CONTROLLER\EEG EMOTIV CONTROLLER\obj\Debug\EEG_EMOTIV_CONTROLLER.Form1.resources
 C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\EEG EMOTIV CONTROLLER\EEG EMOTIV CONTROLLER\bin\Debug\AForge.dll
 C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\EEG EMOTIV CONTROLLER\EEG EMOTIV CONTROLLER\bin\Debug\AForge.xml
+C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\EEG EMOTIV CONTROLLER\EEG EMOTIV CONTROLLER\bin\Debug\BasicDSP.dll
+C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\EEG EMOTIV CONTROLLER\EEG EMOTIV CONTROLLER\bin\Debug\MathNet.Iridium.dll
+C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\EEG EMOTIV CONTROLLER\EEG EMOTIV CONTROLLER\bin\Debug\Microsoft.DirectX.DirectSound.dll
+C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\EEG EMOTIV CONTROLLER\EEG EMOTIV CONTROLLER\bin\Debug\Microsoft.DirectX.dll
+C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\EEG EMOTIV CONTROLLER\EEG EMOTIV CONTROLLER\bin\Debug\Microsoft.DirectX.DirectSound.xml
+C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\EEG EMOTIV CONTROLLER\EEG EMOTIV CONTROLLER\bin\Debug\Microsoft.DirectX.xml
+C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\EEG EMOTIV CONTROLLER\EEG EMOTIV CONTROLLER\obj\Debug\EEG_EMOTIV_CONTROLLER.FormCreateModel.resources
+C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\EEG EMOTIV CONTROLLER\EEG EMOTIV CONTROLLER\obj\Debug\EEG_EMOTIV_CONTROLLER.FormSaveModel.resources
+C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\EEG EMOTIV CONTROLLER\EEG EMOTIV CONTROLLER\bin\Debug\Eloquera.Client.dll
+C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\EEG EMOTIV CONTROLLER\EEG EMOTIV CONTROLLER\bin\Debug\Eloquera.Common.dll
+C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\EEG EMOTIV CONTROLLER\EEG EMOTIV CONTROLLER\bin\Debug\Eloquera.Server.exe
+C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\EEG EMOTIV CONTROLLER\EEG EMOTIV CONTROLLER\bin\Debug\Eloquera.Client.xml
+C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\EEG EMOTIV CONTROLLER\EEG EMOTIV CONTROLLER\bin\Debug\Eloquera.Common.xml
