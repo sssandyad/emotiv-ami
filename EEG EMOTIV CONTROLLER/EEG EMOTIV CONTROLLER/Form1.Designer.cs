@@ -29,17 +29,17 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend7 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend8 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend9 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend10 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            this.label1 = new System.Windows.Forms.Label();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            this.labelMovement = new System.Windows.Forms.Label();
             this.buttonOpen = new System.Windows.Forms.Button();
             this.chartEeg = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.buttonStart = new System.Windows.Forms.Button();
@@ -66,16 +66,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.chartDeltaTheta)).BeginInit();
             this.SuspendLayout();
             // 
-            // label1
+            // labelMovement
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Crimson;
-            this.label1.Location = new System.Drawing.Point(103, 443);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(122, 42);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Lucky";
+            this.labelMovement.AutoSize = true;
+            this.labelMovement.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelMovement.ForeColor = System.Drawing.Color.Crimson;
+            this.labelMovement.Location = new System.Drawing.Point(103, 443);
+            this.labelMovement.Name = "labelMovement";
+            this.labelMovement.Size = new System.Drawing.Size(122, 42);
+            this.labelMovement.TabIndex = 0;
+            this.labelMovement.Text = "Lucky";
             // 
             // buttonOpen
             // 
@@ -90,14 +90,14 @@
             // chartEeg
             // 
             this.chartEeg.BackColor = System.Drawing.Color.Transparent;
-            legend6.Name = "Legend1";
-            this.chartEeg.Legends.Add(legend6);
+            legend1.Name = "Legend1";
+            this.chartEeg.Legends.Add(legend1);
             this.chartEeg.Location = new System.Drawing.Point(371, 26);
             this.chartEeg.Name = "chartEeg";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.chartEeg.Series.Add(series2);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chartEeg.Series.Add(series1);
             this.chartEeg.Size = new System.Drawing.Size(690, 120);
             this.chartEeg.TabIndex = 2;
             this.chartEeg.Text = "Gelombang EEG";
@@ -119,7 +119,7 @@
             // 
             // buttonCreateModel
             // 
-            this.buttonCreateModel.Location = new System.Drawing.Point(93, 17);
+            this.buttonCreateModel.Location = new System.Drawing.Point(226, 17);
             this.buttonCreateModel.Name = "buttonCreateModel";
             this.buttonCreateModel.Size = new System.Drawing.Size(121, 23);
             this.buttonCreateModel.TabIndex = 4;
@@ -130,7 +130,7 @@
             // comboBoxModel
             // 
             this.comboBoxModel.FormattingEnabled = true;
-            this.comboBoxModel.Location = new System.Drawing.Point(93, 46);
+            this.comboBoxModel.Location = new System.Drawing.Point(226, 46);
             this.comboBoxModel.Name = "comboBoxModel";
             this.comboBoxModel.Size = new System.Drawing.Size(121, 21);
             this.comboBoxModel.TabIndex = 5;
@@ -203,10 +203,10 @@
             // 
             // chartGamma
             // 
-            chartArea5.Name = "ChartArea1";
-            this.chartGamma.ChartAreas.Add(chartArea5);
-            legend7.Name = "Legend1";
-            this.chartGamma.Legends.Add(legend7);
+            chartArea1.Name = "ChartArea1";
+            this.chartGamma.ChartAreas.Add(chartArea1);
+            legend2.Name = "Legend1";
+            this.chartGamma.Legends.Add(legend2);
             this.chartGamma.Location = new System.Drawing.Point(371, 588);
             this.chartGamma.Name = "chartGamma";
             this.chartGamma.Size = new System.Drawing.Size(690, 120);
@@ -215,10 +215,10 @@
             // 
             // chartBeta
             // 
-            chartArea6.Name = "ChartArea1";
-            this.chartBeta.ChartAreas.Add(chartArea6);
-            legend8.Name = "Legend1";
-            this.chartBeta.Legends.Add(legend8);
+            chartArea2.Name = "ChartArea1";
+            this.chartBeta.ChartAreas.Add(chartArea2);
+            legend3.Name = "Legend1";
+            this.chartBeta.Legends.Add(legend3);
             this.chartBeta.Location = new System.Drawing.Point(371, 462);
             this.chartBeta.Name = "chartBeta";
             this.chartBeta.Size = new System.Drawing.Size(690, 120);
@@ -227,10 +227,10 @@
             // 
             // chartAlpha
             // 
-            chartArea7.Name = "ChartArea1";
-            this.chartAlpha.ChartAreas.Add(chartArea7);
-            legend9.Name = "Legend1";
-            this.chartAlpha.Legends.Add(legend9);
+            chartArea3.Name = "ChartArea1";
+            this.chartAlpha.ChartAreas.Add(chartArea3);
+            legend4.Name = "Legend1";
+            this.chartAlpha.Legends.Add(legend4);
             this.chartAlpha.Location = new System.Drawing.Point(371, 336);
             this.chartAlpha.Name = "chartAlpha";
             this.chartAlpha.Size = new System.Drawing.Size(690, 120);
@@ -239,10 +239,10 @@
             // 
             // chartDeltaTheta
             // 
-            chartArea8.Name = "ChartArea1";
-            this.chartDeltaTheta.ChartAreas.Add(chartArea8);
-            legend10.Name = "Legend1";
-            this.chartDeltaTheta.Legends.Add(legend10);
+            chartArea4.Name = "ChartArea1";
+            this.chartDeltaTheta.ChartAreas.Add(chartArea4);
+            legend5.Name = "Legend1";
+            this.chartDeltaTheta.Legends.Add(legend5);
             this.chartDeltaTheta.Location = new System.Drawing.Point(371, 210);
             this.chartDeltaTheta.Name = "chartDeltaTheta";
             this.chartDeltaTheta.Size = new System.Drawing.Size(690, 120);
@@ -280,7 +280,7 @@
             this.Controls.Add(this.chartEeg);
             this.Controls.Add(this.buttonStart);
             this.Controls.Add(this.buttonOpen);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelMovement);
             this.DoubleBuffered = true;
             this.Name = "Form1";
             this.Text = "Form1";
@@ -299,7 +299,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelMovement;
         private System.Windows.Forms.Button buttonOpen;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartEeg;
         private System.Windows.Forms.Button buttonStart;

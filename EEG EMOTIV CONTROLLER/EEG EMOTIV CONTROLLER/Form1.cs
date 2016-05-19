@@ -36,6 +36,8 @@ namespace EEG_EMOTIV_CONTROLLER
         {
             InitializeComponent();
 
+            labelMovement.Text = "netral";
+
             channelStringToInt = new Dictionary<string, int>();
             for (int i=0; i<channelsEeg.Length;i++)
             {
@@ -59,7 +61,7 @@ namespace EEG_EMOTIV_CONTROLLER
             chartEeg.Series.Clear();
             chartEeg.ChartAreas.Add("all");
             totalChannels = channelsEeg.Count();
-            int y = 1;
+
             for(int i=0;i<totalChannels;i++)
             {
                 //chartEeg.ChartAreas.Add(channelsEeg[i]);
@@ -251,12 +253,23 @@ namespace EEG_EMOTIV_CONTROLLER
                 }
             }
 
-            
-
             if ((buffer+1) % bufferDecision == 0)
-            { 
+            {
                 //Console.WriteLine("hei: " + fitur.Count.ToString());
                 //timer.Enabled = false;
+                Random rand = new Random();
+                int bil = rand.Next(1, 22);
+                if (bil < 10)
+                    labelMovement.Text = "netral";
+                else if(bil < 13)
+                    labelMovement.Text = "maju";
+                else if (bil < 16)
+                    labelMovement.Text = "mundur";
+                else if (bil < 19)
+                    labelMovement.Text = "kanan";
+                else
+                    labelMovement.Text = "kiri";
+
                 fitur = new List<double>();
                 buffer = 0;
             }
