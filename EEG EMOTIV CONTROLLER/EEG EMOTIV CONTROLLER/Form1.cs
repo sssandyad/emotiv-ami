@@ -11,6 +11,7 @@ namespace EEG_EMOTIV_CONTROLLER
     {
         string eegDataFileName;
         string[] channelsEeg = {"AF3","F7","F3","FC5","T7","P7","O1","O2","P8","T8","FC6","F4","F8","AF4"};
+        string[] classesCommand = { "netral", "maju", "mundur", "kanan", "kiri" };
         Dictionary<string, int> channelStringToInt;
         int totalChannels;
         int totalRecordsData;
@@ -23,18 +24,26 @@ namespace EEG_EMOTIV_CONTROLLER
         int buffer;
 
         int counter;
+        int tickSecond;
 
         double[] dataTesting;
 
         List<Model> models;
         ModelStorage ms;
+        NearestNeighbour knn;
 
         FFTSignalTransform fft;
         BasicSignalProcessor dsp;
 
+        bool hasLoadFile = false;
+        bool hasPickModel = false;
+        bool canStart = false;
+
         public Form1()
         {
             InitializeComponent();
+
+            buttonStart.Enabled = false;
 
             labelMovement.Text = "netral";
 
@@ -50,11 +59,6 @@ namespace EEG_EMOTIV_CONTROLLER
             ms = new ModelStorage();
             LoadModelData();
 
-            //ScrollBar vScrollBar1 = new VScrollBar();
-            //vScrollBar1.Dock = DockStyle.Right;
-            //vScrollBar1.Scroll += (sender, e) => { panel1.VerticalScroll.Value = vScrollBar1.Value; };
-            //panel1.Controls.Add(vScrollBar1);
-
             timer.Enabled = false;
             counter = 1;
 
@@ -62,34 +66,35 @@ namespace EEG_EMOTIV_CONTROLLER
             chartEeg.ChartAreas.Add("all");
             totalChannels = channelsEeg.Count();
 
-            for(int i=0;i<totalChannels;i++)
-            {
-                //chartEeg.ChartAreas.Add(channelsEeg[i]);
-                //chartEeg.ChartAreas[channelsEeg[i]].AxisX.LabelStyle.Enabled = false;
-                //chartEeg.ChartAreas[channelsEeg[i]].AxisY.LabelStyle.Enabled = false;
-                //chartEeg.ChartAreas[channelsEeg[i]].AxisX.MajorGrid.Enabled = false;
-                //chartEeg.ChartAreas[channelsEeg[i]].AxisY.MajorGrid.Enabled = false;
-                //chartEeg.ChartAreas[channelsEeg[i]].AxisY.MajorTickMark.Enabled = false;
-                //chartEeg.ChartAreas[channelsEeg[i]].AxisY.MinorTickMark.Enabled = false;
-                //chartEeg.ChartAreas[channelsEeg[i]].AxisX.MajorTickMark.Enabled = false;
-                //chartEeg.ChartAreas[channelsEeg[i]].AxisX.MinorTickMark.Enabled = false;
-                //chartEeg.ChartAreas[channelsEeg[i]].BorderWidth = 0;
-                //chartEeg.ChartAreas[channelsEeg[i]].AxisX.MajorGrid.LineWidth = 0;
-                //chartEeg.ChartAreas[channelsEeg[i]].AxisY.MajorGrid.LineWidth = 0;
-                chartEeg.ChartAreas[0].AxisY.Maximum = 200;
-                chartEeg.ChartAreas[0].AxisY.Minimum = -200;
+            chartEeg.ChartAreas[0].AxisX.LabelStyle.Enabled = false;
+            chartDeltaTheta.ChartAreas[0].AxisX.LabelStyle.Enabled = false;
+            chartAlpha.ChartAreas[0].AxisX.LabelStyle.Enabled = false;
+            chartBeta.ChartAreas[0].AxisX.LabelStyle.Enabled = false;
+            chartGamma.ChartAreas[0].AxisX.LabelStyle.Enabled = false;
 
-                //chartEeg.ChartAreas[channelsEeg[i]].Position.Width = 85;
-                //chartEeg.ChartAreas[channelsEeg[i]].Position.Height = 6;
-                //chartEeg.ChartAreas[channelsEeg[i]].Position.X = 1;
-                //chartEeg.ChartAreas[channelsEeg[i]].Position.Y = y; y += 6;
+            chartEeg.ChartAreas[0].AxisX.MajorGrid.LineWidth = 0;
+            chartDeltaTheta.ChartAreas[0].AxisX.MajorGrid.LineWidth = 0;
+            chartAlpha.ChartAreas[0].AxisX.MajorGrid.LineWidth = 0;
+            chartBeta.ChartAreas[0].AxisX.MajorGrid.LineWidth = 0;
+            chartGamma.ChartAreas[0].AxisX.MajorGrid.LineWidth = 0;
+
+            //chartEeg.ChartAreas[0].AxisY.MajorGrid.LineWidth = 0;
+            chartDeltaTheta.ChartAreas[0].AxisY.MajorGrid.LineWidth = 0;
+            chartAlpha.ChartAreas[0].AxisY.MajorGrid.LineWidth = 0;
+            chartBeta.ChartAreas[0].AxisY.MajorGrid.LineWidth = 0;
+            chartGamma.ChartAreas[0].AxisY.MajorGrid.LineWidth = 0;
+
+            for (int i = 0; i < totalChannels; i++)
+            {
+
+                //chartEeg.ChartAreas[0].AxisY.Maximum = 200;
+                //chartEeg.ChartAreas[0].AxisY.Minimum = -200;
 
                 chartEeg.Series.Add(channelsEeg[i]);
                 chartEeg.Series[channelsEeg[i]].ChartType = SeriesChartType.FastLine;
                 chartEeg.Series[channelsEeg[i]].IsVisibleInLegend = true;
             }
-            //chartEeg.ChartAreas[0].Visible = false;
-            //chartEeg.ChartAreas[2].Visible = false;
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -105,20 +110,6 @@ namespace EEG_EMOTIV_CONTROLLER
                 comboBoxModel.Items.Add(models[i].name);
             }
             
-        }
-
-        private void initializeChart()
-        {
-            for (int j=0; j<LIMIT_WINDOW_CHART; j++)
-            {
-                for (int i = 0; i < totalChannels; i++)
-                {
-                    DataPoint dp = new DataPoint();
-                    dp.SetValueY(0);
-                    chartEeg.Series[i].Points.Add(dp);
-                }
-            }
-            //counter = LIMIT_WINDOW_CHART;
         }
 
         private void buttonOpen_Click(object sender, EventArgs e)
@@ -175,31 +166,43 @@ namespace EEG_EMOTIV_CONTROLLER
                     MessageBox.Show("Error! File is already open by another program.");
                 }
             }
-            initializeChart();
+
+            hasLoadFile = true;
+
+            if (hasLoadFile && hasPickModel)
+                buttonStart.Enabled = true;
+
         }
 
         private void buttonStart_Click(object sender, EventArgs e)
         {
             timer.Enabled = true;
-            timer.Interval = 1;
+            timer.Interval = 8;
             fitur = new List<double>();
             buffer = 0;
+            tickSecond = 0;
         }
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            for (int i = 0; i < totalChannels; i++)
-            {
-                chartEeg.Series[i].Points.RemoveAt(0);
-
-                DataPoint dp = new DataPoint();
-                dp.SetValueY(eegData[channelsEeg[i]][counter]);                    
-                chartEeg.Series[i].Points.Add(dp);
-                chartEeg.Update();
-            }
-
             int totalSensor = models[comboBoxModel.SelectedIndex].GetTotalSelectedChannels();
             dataTesting = new double[totalSensor];
+
+            if (checkShowChart.Checked)
+            {
+                for (int i = 0; i < totalChannels; i++)
+                {
+                    DataPoint dp = new DataPoint();
+                    dp.SetValueY(eegData[channelsEeg[i]][counter]);
+                    chartEeg.Series[i].Points.Add(dp);
+                    chartEeg.Update();
+
+                    if (counter > LIMIT_WINDOW_CHART)
+                    {
+                        chartEeg.Series[i].Points.RemoveAt(0);
+                    }
+                }
+            }
 
             for (int i = 0; i < totalSensor; i++)
             {
@@ -209,19 +212,41 @@ namespace EEG_EMOTIV_CONTROLLER
 
             }
 
+            fft.Init(totalSensor);
             double[] dataEegFreq = fft.DoWork(dataTesting);
             List<double[]> result = dsp.Decomposes(dataEegFreq);
+
             for (int i = 0; i < totalSensor; i++)
             {
-                chartDeltaTheta.Series[i].Points.AddY(result[0][i]);
-                chartAlpha.Series[i].Points.AddY(result[1][i]);
-                chartBeta.Series[i].Points.AddY(result[2][i]);
-                chartGamma.Series[i].Points.AddY(result[3][i]);
+                if (checkShowChart.Checked)
+                {
+                    chartDeltaTheta.Series[i].Points.AddY(result[0][i]);
+                    chartAlpha.Series[i].Points.AddY(result[1][i]);
+                    chartBeta.Series[i].Points.AddY(result[2][i]);
+                    chartGamma.Series[i].Points.AddY(result[3][i]);
+
+                    if (counter > LIMIT_WINDOW_CHART)
+                    {
+                        chartDeltaTheta.Series[i].Points.RemoveAt(0);
+                        chartAlpha.Series[i].Points.RemoveAt(0);
+                        chartBeta.Series[i].Points.RemoveAt(0);
+                        chartGamma.Series[i].Points.RemoveAt(0);
+                    }
+                }
 
                 fitur.Add(result[0][i]);
                 fitur.Add(result[1][i]);
                 fitur.Add(result[2][i]);
                 fitur.Add(result[3][i]);
+            }
+
+            if (checkShowChart.Checked)
+            {
+                chartEeg.ChartAreas[0].RecalculateAxesScale();
+                chartDeltaTheta.ChartAreas[0].RecalculateAxesScale();
+                chartAlpha.ChartAreas[0].RecalculateAxesScale();
+                chartBeta.ChartAreas[0].RecalculateAxesScale();
+                chartGamma.ChartAreas[0].RecalculateAxesScale();
             }
 
             if (totalSensor > 1)
@@ -253,25 +278,15 @@ namespace EEG_EMOTIV_CONTROLLER
                 }
             }
 
-            if ((buffer+1) % bufferDecision == 0)
+            if ((buffer+1) == bufferDecision)
             {
-                //Console.WriteLine("hei: " + fitur.Count.ToString());
-                //timer.Enabled = false;
-                Random rand = new Random();
-                int bil = rand.Next(1, 22);
-                if (bil < 10)
-                    labelMovement.Text = "netral";
-                else if(bil < 13)
-                    labelMovement.Text = "maju";
-                else if (bil < 16)
-                    labelMovement.Text = "mundur";
-                else if (bil < 19)
-                    labelMovement.Text = "kanan";
-                else
-                    labelMovement.Text = "kiri";
+                int classifyResult = knn.Classify(fitur, 1);
+                labelMovement.Text = classesCommand[classifyResult];
 
                 fitur = new List<double>();
-                buffer = 0;
+                buffer = -1;
+                tickSecond++;
+                labelTickSecond.Text = tickSecond.ToString();
             }
 
             ++buffer;
@@ -296,11 +311,12 @@ namespace EEG_EMOTIV_CONTROLLER
             
             comboBoxChannels.Invalidate();
 
+            int total = models[comboBoxModel.SelectedIndex].GetTotalSelectedChannels();
+
             chartDeltaTheta.Series.Clear();
             chartAlpha.Series.Clear();
             chartBeta.Series.Clear();
             chartGamma.Series.Clear();
-            int total = models[comboBoxModel.SelectedIndex].GetTotalSelectedChannels();
             for (int i = 0; i < total; i++)
             {
                 chartDeltaTheta.Series.Add(models[comboBoxModel.SelectedIndex].selectedChannelsIndex[i]);
@@ -314,15 +330,24 @@ namespace EEG_EMOTIV_CONTROLLER
 
                 chartGamma.Series.Add(models[comboBoxModel.SelectedIndex].selectedChannelsIndex[i]);
                 chartGamma.Series[models[comboBoxModel.SelectedIndex].selectedChannelsIndex[i]].ChartType = SeriesChartType.FastLine;
+
             }
 
             comboBoxChannels.Items.Add("all");
             comboBoxChannels.SelectedIndex = comboBoxChannels.Items.Count - 1;
+
+            knn = new NearestNeighbour(models[comboBoxModel.SelectedIndex]);
+
+            hasPickModel = true;
+            if(hasPickModel && hasLoadFile)
+            {
+                buttonStart.Enabled = true;
+            }
         }
 
         private void comboBoxChannels_SelectedIndexChanged(object sender, EventArgs e)
         {
-                HideChartSeries(comboBoxChannels.SelectedIndex);
+            HideChartSeries(comboBoxChannels.SelectedIndex);
         }
 
         private void HideChartSeries(int index)
@@ -357,6 +382,28 @@ namespace EEG_EMOTIV_CONTROLLER
                         chartGamma.Series[i].Enabled = false;
                     }
                 }
+            }
+        }
+
+        private void checkShowChart_CheckedChanged(object sender, EventArgs e)
+        {
+            if(checkShowChart.Checked)
+            {
+                chartEeg.Enabled = true;
+                chartDeltaTheta.Enabled = true;
+                chartAlpha.Enabled = true;
+                chartBeta.Enabled = true;
+                chartGamma.Enabled = true;
+                comboBoxChannels.Enabled = true;
+            }
+            else
+            {
+                chartEeg.Enabled = false;
+                chartDeltaTheta.Enabled = false;
+                chartAlpha.Enabled = false;
+                chartBeta.Enabled = false;
+                chartGamma.Enabled = false;
+                comboBoxChannels.Enabled = false;
             }
         }
     }

@@ -23,3 +23,8 @@ C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\EEG EMOTIV CONTROLLER\EEG 
 C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\EEG EMOTIV CONTROLLER\EEG EMOTIV CONTROLLER\bin\Debug\Eloquera.Server.exe
 C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\EEG EMOTIV CONTROLLER\EEG EMOTIV CONTROLLER\bin\Debug\Eloquera.Client.xml
 C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\EEG EMOTIV CONTROLLER\EEG EMOTIV CONTROLLER\bin\Debug\Eloquera.Common.xml
+C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\EEG EMOTIV CONTROLLER\EEG EMOTIV CONTROLLER\bin\Debug\Accord.dll.config
+C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\EEG EMOTIV CONTROLLER\EEG EMOTIV CONTROLLER\bin\Debug\Accord.dll
+C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\EEG EMOTIV CONTROLLER\EEG EMOTIV CONTROLLER\bin\Debug\Accord.Math.dll
+C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\EEG EMOTIV CONTROLLER\EEG EMOTIV CONTROLLER\bin\Debug\Accord.xml
+C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\EEG EMOTIV CONTROLLER\EEG EMOTIV CONTROLLER\bin\Debug\Accord.Math.xml

@@ -22,8 +22,8 @@ namespace EEG_EMOTIV_CONTROLLER
         public List<double[]> dataTrainingFreq;
         public Dictionary<string, List<double[]>> spectral;
         public List<List<double>> features;
-        public List<double> correctClass;
-        public List<double> featureClass;
+        public List<int> correctClass;
+        public List<int> featureClass;
 
         public Model()
         {
@@ -32,8 +32,8 @@ namespace EEG_EMOTIV_CONTROLLER
             dataTrainingFreq = new List<double[]>();
             spectral = new Dictionary<string, List<double[]>>();
             features = new List<List<double>>();
-            correctClass = new List<double>();
-            featureClass = new List<double>();
+            correctClass = new List<int>();
+            featureClass = new List<int>();
 
             selectedChannelsIndex = new Dictionary<int, string>();
 
@@ -65,6 +65,7 @@ namespace EEG_EMOTIV_CONTROLLER
 
             text += "name: " + name;
             text += "\n\rtotal record: " + dataTraining.Count.ToString();
+            text += "\n\rtotal fitur: " + features[0].Count.ToString();
             text += "\n\rjumlah kanal: " + GetTotalSelectedChannels().ToString();
             text += "\n\rkanal sensor yang digunakan: ";
             text += "\n\r   " + SelectedChannelsToString();

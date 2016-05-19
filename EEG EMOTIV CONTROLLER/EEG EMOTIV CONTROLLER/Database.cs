@@ -8,9 +8,9 @@ namespace EEG_EMOTIV_CONTROLLER
 {
     class Database
     {
-        const string dbName = "EEG_Record_DB";
+        const string dbName = "DATABASE_EEG";
 
-        public static string fullpath = Environment.CurrentDirectory + @"" + dbName;
+        public static string fullpath = Environment.CurrentDirectory + @"\..\..\..\" + dbName;
 
         public static string ConnectionString = "server=(local);options=none;";
 

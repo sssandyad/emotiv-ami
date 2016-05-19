@@ -379,8 +379,10 @@ namespace EEG_EMOTIV_CONTROLLER
                         model.dataTraining.AddRange(allData[i]);
                 }
 
-                labelDetailModel.Text = model.ToString();
+                fft.Init(model.GetTotalSelectedChannels());
                 CalculateFeature();
+                labelDetailModel.Text = model.ToString();
+                
                 //MessageBox.Show(model.dataTraining[0].Count().ToString());
                 progressBarModel.Value = 0;
                 timerProgress.Enabled = true;
