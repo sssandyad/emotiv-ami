@@ -28,3 +28,6 @@ C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\EEG EMOTIV CONTROLLER\EEG 
 C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\EEG EMOTIV CONTROLLER\EEG EMOTIV CONTROLLER\bin\Debug\Accord.Math.dll
 C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\EEG EMOTIV CONTROLLER\EEG EMOTIV CONTROLLER\bin\Debug\Accord.xml
 C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\EEG EMOTIV CONTROLLER\EEG EMOTIV CONTROLLER\bin\Debug\Accord.Math.xml
+C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\EEG EMOTIV CONTROLLER\EEG EMOTIV CONTROLLER\bin\Debug\DotNetEmotivSDK.dll
+C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\EEG EMOTIV CONTROLLER\EEG EMOTIV CONTROLLER\bin\Debug\edk.dll
+C:\Users\sandy.a.dewangga\Documents\GitHub\emotiv-ami\EEG EMOTIV CONTROLLER\EEG EMOTIV CONTROLLER\bin\Debug\edk_utils.dll

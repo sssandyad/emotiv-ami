@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.IO;
 using System.Windows.Forms.DataVisualization.Charting;
+using Emotiv;
 
 namespace EEG_EMOTIV_CONTROLLER
 {
@@ -38,6 +39,10 @@ namespace EEG_EMOTIV_CONTROLLER
         bool hasLoadFile = false;
         bool hasPickModel = false;
         bool canStart = false;
+        bool isUsingEmotiv = false;
+
+        EmoEngine engine; // Access to the EDK is viaa the EmoEngine 
+        int userID = -1; // userID is used to uniquely identify a user's headset
 
         public Form1()
         {
@@ -60,6 +65,7 @@ namespace EEG_EMOTIV_CONTROLLER
             LoadModelData();
 
             timer.Enabled = false;
+            timerEmotiv.Enabled = false;
             counter = 1;
 
             chartEeg.Series.Clear();
@@ -95,10 +101,31 @@ namespace EEG_EMOTIV_CONTROLLER
                 chartEeg.Series[channelsEeg[i]].IsVisibleInLegend = true;
             }
 
+            EEG_Starter();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+        }
+
+        void EEG_Starter()
+        {
+            // create the engine
+            engine = EmoEngine.Instance;
+            engine.UserAdded += new EmoEngine.UserAddedEventHandler
+            (engine_UserAdded_Event);
+        }
+
+        void engine_UserAdded_Event(object sender, EmoEngineEventArgs e)
+        {
+            // record the user 
+            userID = (int)e.userId;
+
+            // enable data aquisition for this user.
+            engine.DataAcquisitionEnable((uint)userID, true);
+
+            // ask for up to 1 second of buffered data
+            engine.EE_DataSetBufferSizeInSec(1);
         }
 
         public void LoadModelData()
@@ -176,11 +203,19 @@ namespace EEG_EMOTIV_CONTROLLER
 
         private void buttonStart_Click(object sender, EventArgs e)
         {
-            timer.Enabled = true;
-            timer.Interval = 8;
-            fitur = new List<double>();
-            buffer = 0;
-            tickSecond = 0;
+            if (!isUsingEmotiv)
+            {
+                timer.Enabled = true;
+                timer.Interval = 8;
+                fitur = new List<double>();
+                buffer = 0;
+                tickSecond = 0;
+            }
+            else
+            {
+                timerEmotiv.Enabled = true;
+                timer.Interval = 100;
+            }
         }
 
         private void timer_Tick(object sender, EventArgs e)
@@ -405,6 +440,57 @@ namespace EEG_EMOTIV_CONTROLLER
                 chartGamma.Enabled = false;
                 comboBoxChannels.Enabled = false;
             }
+        }
+
+        private void buttonConnectEmotiv_Click(object sender, EventArgs e)
+        {
+            // connect to Emoengine.            
+            engine.Connect();
+            isUsingEmotiv = true;
+        }
+
+        private void timerEmotiv_Tick(object sender, EventArgs e)
+        {
+            RunRealtimeEmotiv();
+        }
+
+        void RunRealtimeEmotiv()
+        {
+            // Handle any waiting events
+            engine.ProcessEvents();
+            // If the user has not yet connected, do not proceed
+            if ((int)userID == -1)
+                return;
+            Dictionary<EdkDll.EE_DataChannel_t, double[]> data = engine.GetData((uint)userID);
+            // If no data, do not proceed
+            if (data == null)
+                return;
+
+
+            //Console.WriteLine("Writing " + _bufferSize.ToString() + " lines of data ");
+
+            int _bufferSize = data[EdkDll.EE_DataChannel_t.TIMESTAMP].Length;
+
+            for (int i = 0; i < _bufferSize; i++)
+            {
+                double AF4 = data[EdkDll.EE_DataChannel_t.AF4][i];
+                double F8 = data[EdkDll.EE_DataChannel_t.F8][i];
+                double F4 = data[EdkDll.EE_DataChannel_t.F4][i];
+                double FC6 = data[EdkDll.EE_DataChannel_t.FC6][i];
+                double T8 = data[EdkDll.EE_DataChannel_t.T8][i];
+                double P8 = data[EdkDll.EE_DataChannel_t.P8][i];
+                double O2 = data[EdkDll.EE_DataChannel_t.O2][i];
+                double O1 = data[EdkDll.EE_DataChannel_t.O1][i];
+                double P7 = data[EdkDll.EE_DataChannel_t.P7][i];
+                double T7 = data[EdkDll.EE_DataChannel_t.T7][i];
+                double FC5 = data[EdkDll.EE_DataChannel_t.FC5][i];
+                double F3 = data[EdkDll.EE_DataChannel_t.F3][i];
+                double F7 = data[EdkDll.EE_DataChannel_t.F7][i];
+                double AF3 = data[EdkDll.EE_DataChannel_t.AF3][i];
+                double time = data[EdkDll.EE_DataChannel_t.TIMESTAMP][i];
+                Console.WriteLine(AF4.ToString());
+            }
+
         }
     }
 }

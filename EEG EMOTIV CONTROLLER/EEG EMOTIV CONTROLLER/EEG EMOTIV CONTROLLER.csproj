@@ -49,6 +49,9 @@
     <Reference Include="BasicDSP">
       <HintPath>..\packages\BasicDSP\BasicDSP.dll</HintPath>
     </Reference>
+    <Reference Include="DotNetEmotivSDK">
+      <HintPath>..\packages\Emotiv\DotNetEmotivSDK.dll</HintPath>
+    </Reference>
     <Reference Include="Eloquera.Client, Version=6.3.3.13, Culture=neutral, PublicKeyToken=170cadcdba67be6c, processorArchitecture=MSIL">
       <HintPath>..\packages\EloqueraDB.6.3.3\lib\net40\Eloquera.Client.dll</HintPath>
       <Private>True</Private>
@@ -135,6 +138,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="edk.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="edk_utils.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Accord.3.0.2\build\Accord.targets" Condition="Exists('..\packages\Accord.3.0.2\build\Accord.targets')" />

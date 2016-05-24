@@ -64,6 +64,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.checkShowChart = new System.Windows.Forms.CheckBox();
             this.labelTickSecond = new System.Windows.Forms.Label();
+            this.buttonConnectEmotiv = new System.Windows.Forms.Button();
+            this.timerEmotiv = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.chartEeg)).BeginInit();
             this.groupBoxModel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartGamma)).BeginInit();
@@ -323,12 +325,27 @@
             this.labelTickSecond.TabIndex = 37;
             this.labelTickSecond.Text = "0";
             // 
+            // buttonConnectEmotiv
+            // 
+            this.buttonConnectEmotiv.Location = new System.Drawing.Point(12, 273);
+            this.buttonConnectEmotiv.Name = "buttonConnectEmotiv";
+            this.buttonConnectEmotiv.Size = new System.Drawing.Size(115, 23);
+            this.buttonConnectEmotiv.TabIndex = 38;
+            this.buttonConnectEmotiv.Text = "connect emotiv";
+            this.buttonConnectEmotiv.UseVisualStyleBackColor = true;
+            this.buttonConnectEmotiv.Click += new System.EventHandler(this.buttonConnectEmotiv_Click);
+            // 
+            // timerEmotiv
+            // 
+            this.timerEmotiv.Tick += new System.EventHandler(this.timerEmotiv_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.ClientSize = new System.Drawing.Size(1084, 697);
+            this.Controls.Add(this.buttonConnectEmotiv);
             this.Controls.Add(this.labelTickSecond);
             this.Controls.Add(this.checkShowChart);
             this.Controls.Add(this.label3);
@@ -395,6 +412,8 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox checkShowChart;
         private System.Windows.Forms.Label labelTickSecond;
+        private System.Windows.Forms.Button buttonConnectEmotiv;
+        private System.Windows.Forms.Timer timerEmotiv;
     }
 }
 
