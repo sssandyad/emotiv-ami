@@ -25,7 +25,10 @@ namespace EEG_EMOTIV_CONTROLLER
         int buffer;
 
         int counter;
+        int counterOutput;
+        int totalCorrectOutput;
         int tickSecond;
+        int compareClass;
 
         double[] dataTesting;
 
@@ -210,6 +213,9 @@ namespace EEG_EMOTIV_CONTROLLER
                 fitur = new List<double>();
                 buffer = 0;
                 tickSecond = 0;
+                counterOutput = 0;
+                totalCorrectOutput = 0;
+                compareClass = comboBoxTest.SelectedIndex;
             }
             else
             {
@@ -316,11 +322,22 @@ namespace EEG_EMOTIV_CONTROLLER
             if ((buffer+1) == bufferDecision)
             {
                 int classifyResult = knn.Classify(fitur, 1);
+                if (compareClass == classifyResult)
+                    totalCorrectOutput++;
+
                 labelMovement.Text = classesCommand[classifyResult];
+
+                if (counterOutput == 20)
+                {
+                    double akurasi = (double) totalCorrectOutput / counterOutput * 100;
+                    timer.Enabled = false;
+                    MessageBox.Show("akurasi: " + akurasi + "%");
+                }
 
                 fitur = new List<double>();
                 buffer = -1;
                 tickSecond++;
+                counterOutput++;
                 labelTickSecond.Text = tickSecond.ToString();
             }
 
@@ -490,6 +507,11 @@ namespace EEG_EMOTIV_CONTROLLER
                 double time = data[EdkDll.EE_DataChannel_t.TIMESTAMP][i];
                 Console.WriteLine(AF4.ToString());
             }
+
+        }
+
+        private void textBoxLabelTest_TextChanged(object sender, EventArgs e)
+        {
 
         }
     }

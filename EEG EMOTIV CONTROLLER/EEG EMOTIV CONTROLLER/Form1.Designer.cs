@@ -29,16 +29,16 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend7 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend8 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend9 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend10 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.labelMovement = new System.Windows.Forms.Label();
             this.buttonOpen = new System.Windows.Forms.Button();
             this.chartEeg = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -66,6 +66,7 @@
             this.labelTickSecond = new System.Windows.Forms.Label();
             this.buttonConnectEmotiv = new System.Windows.Forms.Button();
             this.timerEmotiv = new System.Windows.Forms.Timer(this.components);
+            this.comboBoxTest = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.chartEeg)).BeginInit();
             this.groupBoxModel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartGamma)).BeginInit();
@@ -98,14 +99,14 @@
             // chartEeg
             // 
             this.chartEeg.BackColor = System.Drawing.Color.Transparent;
-            legend1.Name = "Legend1";
-            this.chartEeg.Legends.Add(legend1);
+            legend6.Name = "Legend1";
+            this.chartEeg.Legends.Add(legend6);
             this.chartEeg.Location = new System.Drawing.Point(371, 12);
             this.chartEeg.Name = "chartEeg";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chartEeg.Series.Add(series1);
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chartEeg.Series.Add(series2);
             this.chartEeg.Size = new System.Drawing.Size(690, 165);
             this.chartEeg.TabIndex = 2;
             this.chartEeg.Text = "Gelombang EEG";
@@ -211,10 +212,10 @@
             // 
             // chartGamma
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chartGamma.ChartAreas.Add(chartArea1);
-            legend2.Name = "Legend1";
-            this.chartGamma.Legends.Add(legend2);
+            chartArea5.Name = "ChartArea1";
+            this.chartGamma.ChartAreas.Add(chartArea5);
+            legend7.Name = "Legend1";
+            this.chartGamma.Legends.Add(legend7);
             this.chartGamma.Location = new System.Drawing.Point(371, 588);
             this.chartGamma.Name = "chartGamma";
             this.chartGamma.Size = new System.Drawing.Size(690, 100);
@@ -223,10 +224,10 @@
             // 
             // chartBeta
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chartBeta.ChartAreas.Add(chartArea2);
-            legend3.Name = "Legend1";
-            this.chartBeta.Legends.Add(legend3);
+            chartArea6.Name = "ChartArea1";
+            this.chartBeta.ChartAreas.Add(chartArea6);
+            legend8.Name = "Legend1";
+            this.chartBeta.Legends.Add(legend8);
             this.chartBeta.Location = new System.Drawing.Point(371, 462);
             this.chartBeta.Name = "chartBeta";
             this.chartBeta.Size = new System.Drawing.Size(690, 100);
@@ -235,10 +236,10 @@
             // 
             // chartAlpha
             // 
-            chartArea3.Name = "ChartArea1";
-            this.chartAlpha.ChartAreas.Add(chartArea3);
-            legend4.Name = "Legend1";
-            this.chartAlpha.Legends.Add(legend4);
+            chartArea7.Name = "ChartArea1";
+            this.chartAlpha.ChartAreas.Add(chartArea7);
+            legend9.Name = "Legend1";
+            this.chartAlpha.Legends.Add(legend9);
             this.chartAlpha.Location = new System.Drawing.Point(371, 336);
             this.chartAlpha.Name = "chartAlpha";
             this.chartAlpha.Size = new System.Drawing.Size(690, 100);
@@ -247,10 +248,10 @@
             // 
             // chartDeltaTheta
             // 
-            chartArea4.Name = "ChartArea1";
-            this.chartDeltaTheta.ChartAreas.Add(chartArea4);
-            legend5.Name = "Legend1";
-            this.chartDeltaTheta.Legends.Add(legend5);
+            chartArea8.Name = "ChartArea1";
+            this.chartDeltaTheta.ChartAreas.Add(chartArea8);
+            legend10.Name = "Legend1";
+            this.chartDeltaTheta.Legends.Add(legend10);
             this.chartDeltaTheta.Location = new System.Drawing.Point(371, 210);
             this.chartDeltaTheta.Name = "chartDeltaTheta";
             this.chartDeltaTheta.Size = new System.Drawing.Size(690, 100);
@@ -339,12 +340,27 @@
             // 
             this.timerEmotiv.Tick += new System.EventHandler(this.timerEmotiv_Tick);
             // 
+            // comboBoxTest
+            // 
+            this.comboBoxTest.FormattingEnabled = true;
+            this.comboBoxTest.Items.AddRange(new object[] {
+            "netral",
+            "maju",
+            "mundur",
+            "kanan",
+            "kiri"});
+            this.comboBoxTest.Location = new System.Drawing.Point(93, 48);
+            this.comboBoxTest.Name = "comboBoxTest";
+            this.comboBoxTest.Size = new System.Drawing.Size(58, 21);
+            this.comboBoxTest.TabIndex = 40;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.ClientSize = new System.Drawing.Size(1084, 697);
+            this.Controls.Add(this.comboBoxTest);
             this.Controls.Add(this.buttonConnectEmotiv);
             this.Controls.Add(this.labelTickSecond);
             this.Controls.Add(this.checkShowChart);
@@ -414,6 +430,7 @@
         private System.Windows.Forms.Label labelTickSecond;
         private System.Windows.Forms.Button buttonConnectEmotiv;
         private System.Windows.Forms.Timer timerEmotiv;
+        private System.Windows.Forms.ComboBox comboBoxTest;
     }
 }
 
